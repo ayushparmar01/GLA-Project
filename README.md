@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🎓 CareerBridge (Phase 2: Auth, RBAC & User Profiles)
 
 > **MISSION BHARAT Hackathon Challenge #07**  
@@ -231,3 +232,7 @@ npm test
 - ⏳ **Phase 3: Automated Placement Cell & Cohort Management** (Batch onboarding, student roster verification, institutional TPO portal)
 - ⏳ **Phase 4: ICAN Sandbox Skill Assessment Integration** (Standardized technical benchmarking)
 - ⏳ **Phase 5: Regional Pooled Recruitment Drives & Employer Matchmaking**
+=======
+# GLA-Project
+This is the first hackathon
+>>>>>>> 12449696c395ed2ad233c8f2104823a074b2097e
