@@ -82,6 +82,8 @@ import { AssessmentData, AssessmentAttemptData } from '../types';
 interface StudentPlacementViewProps {
   onBack?: () => void;
   onNavigateToProfile?: () => void;
+  initialTab?: StudentPlacementTab;
+  onTabChange?: (tab: StudentPlacementTab) => void;
 }
 
 export type StudentPlacementTab =
@@ -111,12 +113,25 @@ export type StudentPlacementTab =
 export const StudentPlacementView: React.FC<StudentPlacementViewProps> = ({
   onBack,
   onNavigateToProfile,
+  initialTab,
+  onTabChange,
 }) => {
   const { token, user } = useAuth();
   const { t } = useTranslation();
 
-  const [activeTab, setActiveTab] = useState<StudentPlacementTab>('DRIVES');
+  const [activeTab, setActiveTab] = useState<StudentPlacementTab>(initialTab || 'DRIVES');
   const [selectedMentorshipId, setSelectedMentorshipId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (initialTab && initialTab !== activeTab) {
+      setActiveTab(initialTab);
+    }
+  }, [initialTab]);
+
+  const handleTabChange = (tab: StudentPlacementTab) => {
+    setActiveTab(tab);
+    if (onTabChange) onTabChange(tab);
+  };
 
   // Phase 6 Assessment states
   const [activeAttempt, setActiveAttempt] = useState<AssessmentAttemptData | null>(null);
