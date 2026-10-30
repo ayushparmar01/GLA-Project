@@ -1,71 +1,151 @@
 import React from 'react';
-import { GraduationCap, Heart, Terminal, Database, ShieldCheck } from 'lucide-react';
+import { GraduationCap, ShieldCheck, Heart } from 'lucide-react';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onNavigateToSection?: (sectionId: string) => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onNavigateToSection }) => {
+  const currentYear = new Date().getFullYear();
+
+  const handleScroll = (id: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    if (onNavigateToSection) {
+      onNavigateToSection(id);
+    } else {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
-    <footer className="bg-slate-950 text-slate-400 py-12 border-t border-slate-800">
+    <footer className="bg-slate-950 text-slate-400 py-16 border-t border-slate-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-slate-800">
-          <div className="md:col-span-2">
-            <div className="flex items-center space-x-2 text-white">
-              <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
+          {/* Column 1 — Brand & Mission (spans 2 cols on lg) */}
+          <div className="lg:col-span-2 space-y-4">
+            <div className="flex items-center space-x-3 text-white">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 flex items-center justify-center text-white shadow-md shadow-emerald-700/20">
                 <GraduationCap className="w-5 h-5" />
               </div>
               <span className="text-xl font-bold tracking-tight">
-                Career<span className="text-emerald-500">Bridge</span>
+                Career<span className="text-emerald-400">Bridge</span>
               </span>
             </div>
-            <p className="mt-3 text-sm text-slate-400 max-w-sm">
-              Empowering 35,000+ Indian colleges lacking placement cells with cloud-native TPO infrastructure, pooled recruitment drives, and ICAN-standardized skill verification.
+
+            <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
+              Autonomous career development and recruitment infrastructure built for grassroots engineering
+              and technical colleges lacking dedicated placement cells.
             </p>
-            <div className="mt-4 flex items-center space-x-2 text-xs text-slate-500">
-              <span>Built for</span>
-              <span className="text-emerald-400 font-semibold">MISSION BHARAT HACKATHON</span>
-              <span>&bull;</span>
-              <span>Problem 07</span>
+
+            <div className="pt-2 flex flex-col space-y-1 text-xs">
+              <span className="text-emerald-400 font-semibold tracking-wide">
+                MISSION BHARAT HACKATHON
+              </span>
+              <span className="text-slate-500 font-medium">
+                Problem Statement #07 — Career Access for Colleges with No Placement Cell
+              </span>
             </div>
           </div>
 
+          {/* Column 2 — Platform */}
           <div>
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Architecture</h4>
-            <ul className="space-y-2 text-xs">
-              <li className="flex items-center space-x-1.5">
-                <Terminal className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Node.js / Express / TypeScript</span>
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">Platform</h4>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <a href="#platform" onClick={(e) => handleScroll('platform', e)} className="hover:text-emerald-400 transition-colors">
+                  For Students
+                </a>
               </li>
-              <li className="flex items-center space-x-1.5">
-                <Database className="w-3.5 h-3.5 text-cyan-400" />
-                <span>MongoDB + Mongoose ORM</span>
+              <li>
+                <a href="#platform" onClick={(e) => handleScroll('platform', e)} className="hover:text-emerald-400 transition-colors">
+                  For Colleges (TPO)
+                </a>
               </li>
-              <li className="flex items-center space-x-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
-                <span>ICAN Sandbox Alignment</span>
+              <li>
+                <a href="#platform" onClick={(e) => handleScroll('platform', e)} className="hover:text-emerald-400 transition-colors">
+                  For Employers
+                </a>
               </li>
-              <li className="flex items-center space-x-1.5">
-                <span className="w-3.5 h-3.5 text-teal-400 font-bold">&Delta;</span>
-                <span>Vite + React + Tailwind CSS</span>
+              <li>
+                <a href="#features" onClick={(e) => handleScroll('features', e)} className="hover:text-emerald-400 transition-colors">
+                  Learning Resource Hub
+                </a>
+              </li>
+              <li>
+                <a href="#platform" onClick={(e) => handleScroll('platform', e)} className="hover:text-emerald-400 transition-colors">
+                  Alumni Mentorship Network
+                </a>
               </li>
             </ul>
           </div>
 
+          {/* Column 3 — Resources & Preparation */}
           <div>
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Roadmap</h4>
-            <ul className="space-y-2 text-xs">
-              <li className="text-emerald-400 font-medium">&bull; Phase 1: Project Foundation (Current)</li>
-              <li className="text-slate-500">&bull; Phase 2: Multi-Role Auth & Profiles</li>
-              <li className="text-slate-500">&bull; Phase 3: College Consortium Engine</li>
-              <li className="text-slate-500">&bull; Phase 4: ICAN Skill Sandbox Integration</li>
-              <li className="text-slate-500">&bull; Phase 5: Regional Pooled Job Drives</li>
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">Resources</h4>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <a href="#features" onClick={(e) => handleScroll('features', e)} className="hover:text-emerald-400 transition-colors">
+                  ATS Resume Analyzer
+                </a>
+              </li>
+              <li>
+                <a href="#features" onClick={(e) => handleScroll('features', e)} className="hover:text-emerald-400 transition-colors">
+                  AI Mock Interview Practice
+                </a>
+              </li>
+              <li>
+                <a href="#features" onClick={(e) => handleScroll('features', e)} className="hover:text-emerald-400 transition-colors">
+                  Standardized Assessments
+                </a>
+              </li>
+              <li>
+                <a href="#how-it-works" onClick={(e) => handleScroll('how-it-works', e)} className="hover:text-emerald-400 transition-colors">
+                  Career Roadmaps
+                </a>
+              </li>
+              <li>
+                <a href="#accessibility" onClick={(e) => handleScroll('accessibility', e)} className="hover:text-emerald-400 transition-colors">
+                  Low-Bandwidth PWA
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4 — Hackathon & Governance */}
+          <div>
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">Governance</h4>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <a href="#problem" onClick={(e) => handleScroll('problem', e)} className="hover:text-emerald-400 transition-colors">
+                  Problem Analysis
+                </a>
+              </li>
+              <li>
+                <a href="#ai-intelligence" onClick={(e) => handleScroll('ai-intelligence', e)} className="hover:text-emerald-400 transition-colors">
+                  AI Ethics & Disclosure
+                </a>
+              </li>
+              <li>
+                <span className="text-slate-500 cursor-default">Open Source (MIT)</span>
+              </li>
+              <li>
+                <span className="text-slate-500 cursor-default">Privacy Policy</span>
+              </li>
+              <li>
+                <span className="text-slate-500 cursor-default">Terms of Service</span>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>&copy; {new Date().getFullYear()} CareerBridge. Open-source under MIT License.</p>
+        {/* Bottom Bar */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+          <p>&copy; {currentYear} CareerBridge. Designed and built for the Mission Bharat Hackathon.</p>
           <div className="flex items-center space-x-1">
-            <span>Crafted with</span>
-            <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 inline" />
-            <span>for rural and Tier-2/3 student empowerment across India</span>
+            <span>Empowering Tier-2/3 & rural student talent across India</span>
           </div>
         </div>
       </div>

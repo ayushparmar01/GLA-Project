@@ -4,8 +4,13 @@ import { I18nProvider } from './i18n/I18nContext';
 import { Navbar, NavigationTarget } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { SystemHealthBanner } from './components/SystemHealthBanner';
-import { ValueProps } from './components/ValueProps';
-import { RoleCards } from './components/RoleCards';
+import { ProblemStatement } from './components/landing/ProblemStatement';
+import { PlatformOverview } from './components/landing/PlatformOverview';
+import { CoreFeatures } from './components/landing/CoreFeatures';
+import { HowItWorks } from './components/landing/HowItWorks';
+import { AiIntelligence } from './components/landing/AiIntelligence';
+import { ImpactAccessibility } from './components/landing/ImpactAccessibility';
+import { FinalCta } from './components/landing/FinalCta';
 import { Footer } from './components/Footer';
 import { RegisterView } from './components/RegisterView';
 import { LoginView } from './components/LoginView';
@@ -104,10 +109,21 @@ const AppContent: React.FC = () => {
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
                 <PwaInstallBanner variant="banner" />
               </div>
-              <Hero />
+              <Hero
+                onExplore={() => {
+                  const el = document.getElementById('platform');
+                  el?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                onJoin={() => setActiveView('register')}
+              />
               <SystemHealthBanner health={health} loading={loadingHealth} onRefresh={checkHealth} />
-              <ValueProps />
-              <RoleCards onSelectRole={handleRoleCardSelect} />
+              <ProblemStatement />
+              <PlatformOverview onSelectRole={handleRoleCardSelect} />
+              <CoreFeatures />
+              <HowItWorks onGetStarted={() => setActiveView('register')} />
+              <AiIntelligence />
+              <ImpactAccessibility />
+              <FinalCta onSelectRole={handleRoleCardSelect} />
             </>
           )}
 

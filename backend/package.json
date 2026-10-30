@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
+    "seed": "tsx src/seedData.ts",
+    "seed:reset": "tsx src/seedData.ts --reset",
     "start": "node dist/server.js",
     "test": "vitest run",
     "test:watch": "vitest"
