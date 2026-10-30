@@ -24,6 +24,7 @@ import {
   ShieldCheck,
   X,
   RefreshCw,
+  Sparkles,
 } from 'lucide-react';
 
 interface WhatsAppIntegrationCardProps {
@@ -183,15 +184,28 @@ export const WhatsAppIntegrationCard: React.FC<WhatsAppIntegrationCardProps> = (
           </div>
         </div>
 
-        {status?.linked ? (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-            <CheckCircle2 className="w-3.5 h-3.5" /> Verified & Connected
-          </span>
-        ) : (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600">
-            Not Linked
-          </span>
-        )}
+        <div className="flex items-center gap-2">
+          {onPreviewRequested && (
+            <button
+              type="button"
+              onClick={onPreviewRequested}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 hover:bg-amber-200 text-amber-950 border border-amber-300 transition-colors cursor-pointer shadow-2xs"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-700" />
+              <span>Launch Demo Mode</span>
+            </button>
+          )}
+
+          {status?.linked ? (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <CheckCircle2 className="w-3.5 h-3.5" /> Verified & Connected
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600">
+              Not Linked
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Notice Banner */}
@@ -245,9 +259,13 @@ export const WhatsAppIntegrationCard: React.FC<WhatsAppIntegrationCardProps> = (
                 <button
                   type="button"
                   onClick={onPreviewRequested}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300 rounded-lg text-xs font-bold transition-colors cursor-pointer shadow-2xs"
                 >
-                  <MessageSquare className="w-4 h-4 text-emerald-600" /> Interactive Chat Demo
+                  <Sparkles className="w-4 h-4 text-amber-700" />
+                  <span>Launch WhatsApp Demo Mode</span>
+                  <span className="text-[9px] bg-amber-400 text-amber-950 font-extrabold px-1.5 py-0.2 rounded-sm uppercase">
+                    SIMULATED
+                  </span>
                 </button>
               )}
             </div>
@@ -269,9 +287,10 @@ export const WhatsAppIntegrationCard: React.FC<WhatsAppIntegrationCardProps> = (
                   <button
                     type="button"
                     onClick={onPreviewRequested}
-                    className="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 rounded-lg text-xs font-medium text-slate-700 cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 border border-amber-300 hover:bg-amber-100 rounded-lg text-xs font-bold text-amber-950 cursor-pointer shadow-2xs"
                   >
-                    Open Simulator
+                    <Sparkles className="w-3.5 h-3.5 text-amber-700" />
+                    <span>Launch Demo Mode</span>
                   </button>
                 )}
                 <button

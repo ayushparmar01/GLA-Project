@@ -56,6 +56,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               return { parent: 'Learning', current: 'Career Roadmaps' };
             case 'MENTORSHIP':
               return { parent: 'Network', current: 'Mentorship Network' };
+            case 'COMMUNICATION_CENTRE':
+              return { parent: 'Network', current: 'Communication & Notices' };
             default:
               return { parent: 'Student Portal', current: 'Placement Desk' };
           }

@@ -24,6 +24,7 @@ import {
   LogOut,
   X,
   Zap,
+  Bell,
 } from 'lucide-react';
 import { BrandLogo } from '../common/BrandLogo';
 import { useAuth } from '../../context/AuthContext';
@@ -128,6 +129,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
             { id: 'learning-hub', label: 'Learning Hub', icon: BookOpen, view: 'student-placement', studentTab: 'LEARNING_HUB' },
             { id: 'roadmaps', label: 'Career Roadmaps', icon: Map, view: 'student-placement', studentTab: 'ROADMAPS' },
             { id: 'mentorship', label: 'Mentorship Network', icon: MessageSquare, view: 'student-placement', studentTab: 'MENTORSHIP' },
+            { id: 'communication-centre', label: 'Communication & Notices', icon: Bell, view: 'student-placement', studentTab: 'COMMUNICATION_CENTRE', badge: 'WhatsApp' },
           ],
         },
       ];

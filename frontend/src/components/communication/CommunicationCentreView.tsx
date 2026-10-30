@@ -15,7 +15,10 @@ import {
   Users,
   X,
   Search,
+  MessageSquare,
+  Sparkles,
 } from 'lucide-react';
+import { WhatsAppDemoAssistant } from '../whatsapp/WhatsAppDemoAssistant';
 
 interface CommunicationCentreViewProps {
   token: string | null;
@@ -33,6 +36,7 @@ export const CommunicationCentreView: React.FC<CommunicationCentreViewProps> = (
 
   const [priorityFilter, setPriorityFilter] = useState<string>('ALL');
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
+  const [isWhatsAppDemoOpen, setIsWhatsAppDemoOpen] = useState<boolean>(false);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -140,14 +144,28 @@ export const CommunicationCentreView: React.FC<CommunicationCentreViewProps> = (
           </p>
         </div>
 
-        {isBroadcaster && (
+        <div className="flex flex-wrap items-center gap-2.5">
           <button
-            onClick={() => setShowCreateModal(true)}
-            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-medium text-xs sm:text-sm transition-colors shadow-lg shadow-teal-600/20 shrink-0"
+            type="button"
+            onClick={() => setIsWhatsAppDemoOpen(true)}
+            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#075e54] hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg cursor-pointer shrink-0"
           >
-            <Plus className="w-4 h-4" /> Broadcast Announcement
+            <MessageSquare className="w-4 h-4 text-emerald-300" />
+            <span>WhatsApp Assistant</span>
+            <span className="text-[9px] font-extrabold bg-amber-400 text-amber-950 px-1.5 py-0.2 rounded-sm uppercase tracking-wider">
+              DEMO MODE
+            </span>
           </button>
-        )}
+
+          {isBroadcaster && (
+            <button
+              onClick={() => setShowCreateModal(true)}
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-medium text-xs sm:text-sm transition-colors shadow-lg shadow-teal-600/20 shrink-0"
+            >
+              <Plus className="w-4 h-4" /> Broadcast Announcement
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Status Messages */}
@@ -319,6 +337,11 @@ export const CommunicationCentreView: React.FC<CommunicationCentreViewProps> = (
             </form>
           </div>
         </div>
+      )}
+
+      {/* WhatsApp Assistant Simulator Modal */}
+      {isWhatsAppDemoOpen && (
+        <WhatsAppDemoAssistant onClose={() => setIsWhatsAppDemoOpen(false)} isModal={true} />
       )}
     </div>
   );

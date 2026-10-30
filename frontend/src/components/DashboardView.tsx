@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from '../i18n/I18nContext';
 import { LanguageSelector } from './common/LanguageSelector';
@@ -22,6 +22,7 @@ import {
 import { CollegeDashboardView } from './CollegeDashboardView';
 import { EmployerDashboardView } from './employer/EmployerDashboardView';
 import { AdminControlCentreView } from './admin/AdminControlCentreView';
+import { WhatsAppDemoAssistant } from './whatsapp/WhatsAppDemoAssistant';
 
 interface DashboardViewProps {
   onEditProfile: () => void;
@@ -48,6 +49,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 }) => {
   const { user } = useAuth();
   const { t } = useTranslation();
+  const [isDemoAssistantOpen, setIsDemoAssistantOpen] = useState(false);
 
   if (!user) {
     return null;
@@ -238,6 +240,35 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </p>
           </div>
 
+          {/* WhatsApp Career Companion Demo Banner */}
+          <div className="bg-gradient-to-r from-[#075e54] via-emerald-800 to-teal-900 rounded-2xl p-5 text-white shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border border-emerald-700/50">
+            <div className="flex items-center gap-3.5">
+              <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0 shadow-inner">
+                <MessageSquare className="w-6 h-6 text-emerald-200" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-bold text-white">WhatsApp Career Companion</h3>
+                  <span className="text-[9px] font-extrabold bg-amber-400 text-amber-950 px-2 py-0.5 rounded-sm uppercase tracking-wider shadow-2xs">
+                    DEMO MODE
+                  </span>
+                </div>
+                <p className="text-xs text-emerald-100/90 mt-0.5 max-w-xl leading-relaxed">
+                  Experience interactive placement guidance, review verified eligibility rationale, and preview simulated WhatsApp notification templates.
+                </p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setIsDemoAssistantOpen(true)}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-emerald-50 text-[#075e54] text-xs font-bold transition-all shadow-sm cursor-pointer whitespace-nowrap active:scale-95"
+            >
+              <Sparkles className="w-4 h-4 text-emerald-600" />
+              <span>Launch Simulator</span>
+            </button>
+          </div>
+
           {/* Student Information Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
@@ -322,6 +353,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </div>
           </div>
         </div>
+      )}
+
+      {/* Interactive WhatsApp Demo Assistant Modal */}
+      {isDemoAssistantOpen && (
+        <WhatsAppDemoAssistant onClose={() => setIsDemoAssistantOpen(false)} isModal={true} />
       )}
     </div>
   );
