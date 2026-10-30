@@ -1,0 +1,41 @@
+{
+  "controlCentre": {
+    "title": "Admin Control Centre",
+    "subtitle": "Platform governance, compliance oversight, corporate verification, aur placement audits.",
+    "totalUsers": "Total Registered Users",
+    "students": "Students",
+    "employers": "Employers",
+    "colleges": "Colleges",
+    "activeOpportunities": "Published Drives",
+    "totalApplications": "Total Applications",
+    "pendingVerifications": "Pending Employer Verifications",
+    "recentActivity": "Recent Administrative Actions"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "users": "User Governance",
+    "employers": "Employer Verification",
+    "colleges": "College Supervision",
+    "moderation": "Content Moderation",
+    "analytics": "Placement Analytics",
+    "auditLogs": "Audit Trail",
+    "systemHealth": "System Health",
+    "whatsapp": "WhatsApp Integration"
+  },
+  "userGovernance": {
+    "title": "User Account Management",
+    "suspendBtn": "Account Suspend Karein",
+    "reactivateBtn": "Reactivate Karein",
+    "suspendReasonPrompt": "Suspension ke liye documented reason enter karein:",
+    "selfSuspensionForbidden": "Super-admin accounts khud ko suspend nahi kar sakte."
+  },
+  "moderation": {
+    "title": "Content Moderation Desk",
+    "flaggedItem": "Flagged Content",
+    "reason": "Report Reason",
+    "reportedBy": "Reported By",
+    "resolveKeep": "Content Approve Karein",
+    "resolveRemove": "Content Remove Karein",
+    "dismiss": "Report Dismiss Karein"
+  }
+}

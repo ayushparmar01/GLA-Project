@@ -1,0 +1,30 @@
+{
+  "dashboard": {
+    "title": "College Placement Cell Desk",
+    "subtitle": "Automate student cohorts, broadcast verified placement opportunities, and connect with regional corporate recruiters.",
+    "totalStudents": "Enrolled Students",
+    "activeCohorts": "Active Cohorts",
+    "campusDrives": "Active Drives",
+    "placementRate": "Placed Students Rate",
+    "createCohort": "Create Academic Cohort",
+    "publishDrive": "Publish Placement Drive",
+    "connectEmployers": "Recruiter Partnerships"
+  },
+  "cohorts": {
+    "title": "Student Cohort Management",
+    "createTitle": "Create New Academic Cohort",
+    "name": "Cohort Name",
+    "academicYear": "Academic Year",
+    "degree": "Degree / Department",
+    "enrollStudents": "Enroll Students by Email",
+    "studentRoster": "Student Roster"
+  },
+  "drives": {
+    "title": "Placement Drives & Eligibility",
+    "createDrive": "Create Placement Drive",
+    "eligibilityRules": "Eligibility Criteria (CGPA, Course, Backlogs)",
+    "deadline": "Application Deadline",
+    "totalEligible": "Eligible Students",
+    "reviewApplications": "Review Student Applications"
+  }
+}

@@ -1,17 +1,87 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from '../i18n/I18nContext';
+import { LanguageSelector } from './common/LanguageSelector';
 import { SafeUser } from '../types';
-import { User, School, Briefcase, Award, CheckCircle2, Edit3, Globe, Sparkles, BookOpen, MapPin } from 'lucide-react';
+import {
+  User,
+  School,
+  Briefcase,
+  Award,
+  CheckCircle2,
+  Edit3,
+  Globe,
+  Sparkles,
+  BookOpen,
+  MapPin,
+  ArrowRight,
+  Send,
+  Users,
+  MessageSquare,
+} from 'lucide-react';
+import { CollegeDashboardView } from './CollegeDashboardView';
+import { EmployerDashboardView } from './employer/EmployerDashboardView';
+import { AdminControlCentreView } from './admin/AdminControlCentreView';
 
 interface DashboardViewProps {
   onEditProfile: () => void;
+  onNavigateToCohorts?: () => void;
+  onNavigateToDrives?: () => void;
+  onNavigateToStudentPlacement?: () => void;
+  onNavigateToEmployerOpportunities?: () => void;
+  onNavigateToEmployerApplicants?: () => void;
+  onNavigateToEmployerInterviews?: () => void;
+  onNavigateToEmployerConnections?: () => void;
+  onNavigateToEmployerProfile?: () => void;
 }
 
-export const DashboardView: React.FC<DashboardViewProps> = ({ onEditProfile }) => {
+export const DashboardView: React.FC<DashboardViewProps> = ({
+  onEditProfile,
+  onNavigateToCohorts = () => {},
+  onNavigateToDrives = () => {},
+  onNavigateToStudentPlacement = () => {},
+  onNavigateToEmployerOpportunities = () => {},
+  onNavigateToEmployerApplicants = () => {},
+  onNavigateToEmployerInterviews = () => {},
+  onNavigateToEmployerConnections = () => {},
+  onNavigateToEmployerProfile = () => {},
+}) => {
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   if (!user) {
     return null;
+  }
+
+  // If admin, display the Dedicated Admin Control Centre
+  if (user.role === 'ADMIN') {
+    return <AdminControlCentreView />;
+  }
+
+  // If college, display the Institutional Placement Cell Dashboard
+  if (user.role === 'COLLEGE') {
+    return (
+      <CollegeDashboardView
+        onNavigateToCohorts={onNavigateToCohorts}
+        onNavigateToDrives={onNavigateToDrives}
+        onEditProfile={onEditProfile}
+      />
+    );
+  }
+
+  // If employer, display the Employer Corporate Recruitment Dashboard
+  if (user.role === 'EMPLOYER') {
+    return (
+      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <EmployerDashboardView
+          onNavigateToOpportunities={onNavigateToEmployerOpportunities}
+          onNavigateToApplicants={onNavigateToEmployerApplicants}
+          onNavigateToInterviews={onNavigateToEmployerInterviews}
+          onNavigateToConnections={onNavigateToEmployerConnections}
+          onNavigateToProfile={onNavigateToEmployerProfile}
+        />
+      </div>
+    );
   }
 
   const getRoleBadge = (role: string) => {
@@ -21,12 +91,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onEditProfile }) =
           label: 'STUDENT PORTAL',
           color: 'bg-emerald-50 text-emerald-800 border-emerald-200',
           icon: User,
-        };
-      case 'COLLEGE':
-        return {
-          label: 'COLLEGE TPO PORTAL',
-          color: 'bg-teal-50 text-teal-800 border-teal-200',
-          icon: School,
         };
       case 'EMPLOYER':
         return {
@@ -48,12 +112,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onEditProfile }) =
 
   const sp = user.studentProfile;
   const ep = user.employerProfile;
-  const cp = user.collegeProfile;
 
   const score = sp?.profileCompletionScore || 0;
 
   return (
-    <div className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
       {/* Top Welcome Card */}
       <div className="bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 rounded-2xl p-8 text-white shadow-lg relative overflow-hidden mb-8">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -68,7 +131,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onEditProfile }) =
               </span>
             </div>
             <h1 className="text-3xl font-extrabold tracking-tight">
-              Welcome back, {user.fullName}!
+              {t('student.dashboard.welcome', { name: user.fullName })}
             </h1>
             <p className="text-slate-300 text-sm mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
               <span>Email: <strong className="text-white">{user.email}</strong></span>
@@ -84,20 +147,66 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onEditProfile }) =
           </div>
 
           <div className="flex items-center space-x-3">
+            <LanguageSelector variant="compact" />
             <button
               onClick={onEditProfile}
-              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition-all shadow-md shadow-emerald-700/25"
+              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition-all shadow-md shadow-emerald-700/25 cursor-pointer"
             >
               <Edit3 className="w-4 h-4" />
-              <span>Edit Profile</span>
+              <span>{t('actions.edit')}</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Role-Specific Portal Content */}
+      {/* Student Portal Specific Content */}
       {user.role === 'STUDENT' && (
         <div className="space-y-8">
+          {/* Phase 3 Quick Access Banner */}
+          <div className="bg-emerald-50 rounded-2xl p-6 border border-emerald-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider">
+                Phase 3 Automated Placement Desk
+              </span>
+              <h3 className="text-lg font-bold text-emerald-950">
+                Campus Drives & Cohort Participation
+              </h3>
+              <p className="text-xs text-emerald-800/80 max-w-xl">
+                Browse placement drives published by your college, verify your eligibility with explainable criteria, and track recruitment rounds.
+              </p>
+            </div>
+            <button
+              onClick={onNavigateToStudentPlacement}
+              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition-all shadow-sm flex-shrink-0"
+            >
+              <span>Explore Campus Drives</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Phase 10 WhatsApp Career Assistant Quick Access */}
+          <div className="bg-gradient-to-r from-emerald-900 to-teal-950 text-white rounded-2xl p-6 border border-emerald-700/40 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center space-x-2 text-xs font-bold text-emerald-400 uppercase tracking-wider">
+                <MessageSquare className="w-4 h-4" />
+                <span>Phase 10 · WhatsApp Career Assistant</span>
+              </div>
+              <h3 className="text-lg font-bold text-white">
+                Career Updates & AI Guidance on Your Phone
+              </h3>
+              <p className="text-xs text-emerald-200/90 max-w-xl">
+                Link your WhatsApp to receive instant placement alerts, application status changes, interview reminders, and 24/7 AI career counseling without internet browsing.
+              </p>
+            </div>
+            <button
+              onClick={onEditProfile}
+              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition-all shadow-md shadow-emerald-500/20 flex-shrink-0 cursor-pointer"
+            >
+              <MessageSquare className="w-4 h-4" />
+              <span>Configure WhatsApp</span>
+            </button>
+          </div>
+
           {/* Profile Completion Meter */}
           <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
@@ -210,102 +319,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onEditProfile }) =
                   )}
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {user.role === 'COLLEGE' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
-            <div className="flex items-center space-x-2 text-slate-800 font-bold mb-4">
-              <School className="w-5 h-5 text-teal-600" />
-              <h3 className="text-base font-bold">Institution Profile</h3>
-            </div>
-            <dl className="space-y-3 text-sm">
-              <div>
-                <dt className="text-xs text-slate-400 font-medium">Institution Name</dt>
-                <dd className="font-semibold text-slate-800">{cp?.institutionName || 'Not specified'}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-slate-400 font-medium">Campus Location</dt>
-                <dd className="font-semibold text-slate-800">{cp?.institutionLocation || 'Not specified'}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-slate-400 font-medium">Institution Classification</dt>
-                <dd className="font-semibold text-slate-800">{cp?.institutionType || 'Rural / Semi-Urban Higher Education'}</dd>
-              </div>
-            </dl>
-          </div>
-
-          <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
-            <div className="flex items-center space-x-2 text-slate-800 font-bold mb-4">
-              <User className="w-5 h-5 text-teal-600" />
-              <h3 className="text-base font-bold">Placement Cell Liaison</h3>
-            </div>
-            <dl className="space-y-3 text-sm">
-              <div>
-                <dt className="text-xs text-slate-400 font-medium">Faculty Coordinator / Contact Person</dt>
-                <dd className="font-semibold text-slate-800">{cp?.contactPerson || user.fullName}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-slate-400 font-medium">Official Placement Email</dt>
-                <dd className="font-semibold text-slate-800">{cp?.placementEmail || user.email}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-slate-400 font-medium">Direct Placement Desk Contact</dt>
-                <dd className="font-semibold text-slate-800">{cp?.placementPhone || user.phoneNumber || 'Not provided'}</dd>
-              </div>
-            </dl>
-          </div>
-        </div>
-      )}
-
-      {user.role === 'EMPLOYER' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
-            <div className="flex items-center space-x-2 text-slate-800 font-bold mb-4">
-              <Briefcase className="w-5 h-5 text-indigo-600" />
-              <h3 className="text-base font-bold">Organization Profile</h3>
-            </div>
-            <dl className="space-y-3 text-sm">
-              <div>
-                <dt className="text-xs text-slate-400 font-medium">Company Name</dt>
-                <dd className="font-semibold text-slate-800">{ep?.organizationName || 'Not specified'}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-slate-400 font-medium">Industry / Sector</dt>
-                <dd className="font-semibold text-slate-800">{ep?.industry || 'Technology & Engineering'}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-slate-400 font-medium">Headquarters / Office Location</dt>
-                <dd className="font-semibold text-slate-800">{ep?.organizationLocation || 'Pan-India'}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-slate-400 font-medium">About Organization</dt>
-                <dd className="text-slate-600 text-xs leading-relaxed mt-1">{ep?.organizationDescription || 'No description provided.'}</dd>
-              </div>
-            </dl>
-          </div>
-
-          <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
-            <div className="flex items-center space-x-2 text-slate-800 font-bold mb-4">
-              <Award className="w-5 h-5 text-indigo-600" />
-              <h3 className="text-base font-bold">Talent Hiring Criteria</h3>
-            </div>
-            <div>
-              <span className="text-xs text-slate-400 font-medium block mb-2">Target Roles & Skills Sought</span>
-              {ep?.hiringInterests && ep.hiringInterests.length > 0 ? (
-                <div className="flex flex-wrap gap-2">
-                  {ep.hiringInterests.map((interest, idx) => (
-                    <span key={idx} className="bg-indigo-50 text-indigo-800 text-xs px-3 py-1 rounded-md font-medium border border-indigo-200">
-                      {interest}
-                    </span>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-xs text-slate-400 italic">No specific hiring roles defined yet.</p>
-              )}
             </div>
           </div>
         </div>

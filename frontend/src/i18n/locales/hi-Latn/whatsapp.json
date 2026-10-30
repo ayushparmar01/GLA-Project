@@ -1,0 +1,34 @@
+{
+  "title": "WhatsApp Career Assistant",
+  "subtitle": "Phone par instant placement alerts, status changes, interview reminders, aur AI career counseling payein.",
+  "connected": "Connected",
+  "notLinked": "Not Linked",
+  "linkAccount": "WhatsApp Link Karein",
+  "unlinkAccount": "Unlink Karein",
+  "confirmUnlink": "Confirm Unlink",
+  "modalTitle": "WhatsApp Career Assistant Connect Karein",
+  "modalSubtitle": "Apne phone par direct job alerts aur career guidance payein.",
+  "phoneLabel": "Aapka WhatsApp Number",
+  "generateCode": "Secure Link Code Generate Karein",
+  "timerCountdown": "{{minutes}}:{{seconds}} me expire hoga",
+  "codeInstructions": "Yeh code official CareerBridge WhatsApp Assistant ko send karein:",
+  "copied": "Clipboard par copy ho gaya!",
+  "preferencesTitle": "Notification Preferences",
+  "preferences": {
+    "jobAlerts": "Instant Campus Drive Alerts",
+    "jobAlertsDesc": "Jab meri degree/branch se matching drives aayen to notify karein",
+    "applicationUpdates": "Application Status Alerts",
+    "applicationUpdatesDesc": "Recruiter jab shortlist ya review karein to instant update",
+    "interviewAlerts": "Interview Scheduling Reminders",
+    "interviewAlertsDesc": "Interview se 24 hours pehle automatic reminder",
+    "careerTips": "AI Career Guidance & Tips",
+    "careerTipsDesc": "Weekly preparation roadmaps, mock questions aur industry updates"
+  },
+  "simulator": {
+    "title": "CareerBridge Assistant",
+    "badge": "DEMO SIMULATOR",
+    "online": "online",
+    "typePlaceholder": "Command ya question type karein...",
+    "quickActions": "Quick Commands:"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "dashboard": {
+    "welcome": "स्वागत है, {{name}}!",
+    "portalBadge": "छात्र पोर्टल",
+    "completionTitle": "प्रोफ़ाइल सुदृढ़ता एवं तत्परता",
+    "completionScore": "प्रोफ़ाइल पूर्णता स्कोर",
+    "academicInfo": "शैक्षणिक जानकारी",
+    "institution": "संस्थान / कॉलेज",
+    "course": "डिग्री एवं शाखा",
+    "educationLevel": "शिक्षा स्तर",
+    "graduationYear": "स्नातक वर्ष",
+    "skills": "तकनीकी एवं सॉफ्ट स्किल्स",
+    "careerInterests": "कैरियर में रुचि",
+    "preferredLocations": "पसंदीदा कार्य स्थल",
+    "exploreDrives": "कैंपस ड्राइव्स खोजें",
+    "placementDeskBanner": "कैंपस ड्राइव्स एवं कोहोर्ट भागीदारी",
+    "placementDeskDesc": "अपने कॉलेज द्वारा प्रकाशित प्लेसमेंट ड्राइव्स देखें, स्पष्ट मानदंडों के साथ अपनी पात्रता जांचें, और भर्ती राउंड्स को ट्रैक करें।",
+    "whatsAppBannerTitle": "कैरियर अपडेट्स और AI मार्गदर्शन आपके फ़ोन पर",
+    "whatsAppBannerDesc": "तत्काल प्लेसमेंट अलर्ट, आवेदन स्थिति परिवर्तन, साक्षात्कार अनुस्मारक और 24/7 AI कैरियर परामर्श सीधे प्राप्त करने के लिए अपना WhatsApp लिंक करें।",
+    "configureWhatsApp": "WhatsApp कॉन्फ़िगर करें"
+  },
+  "readiness": {
+    "title": "कैरियर तत्परता स्कोर (Career Readiness Score)",
+    "compositeScore": "समग्र कैरियर तत्परता स्कोर",
+    "disclaimer": "यह स्कोर आपके पूर्ण किए गए प्रोफ़ाइल अनुभागों, सत्यापित कौशलों और प्रोजेक्ट्स पर आधारित एक पारदर्शी गणना है। यह आपकी तैयारी में सहायता के लिए एक सलाहकार मीट्रिक है और नौकरी की गारंटी नहीं देता है।",
+    "bands": {
+      "highlyJobReady": "नौकरी के लिए अत्यधिक तत्पर",
+      "jobReady": "नौकरी के लिए तत्पर",
+      "developing": "प्रगतिशील तत्परता",
+      "earlyStage": "प्रारंभिक चरण"
+    },
+    "pillars": {
+      "profileCompleteness": "प्रोफ़ाइल पूर्णता",
+      "skillsAssessment": "सत्यापित कौशल मूल्यांकन",
+      "projectsPortfolio": "प्रोजेक्ट पोर्टफोलियो",
+      "academics": "शैक्षणिक रिकॉर्ड्स",
+      "resume": "ATS रेज़्युमे तैयार",
+      "certifications": "प्रमाणपत्र"
+    }
+  },
+  "careerProfile": {
+    "title": "छात्र कैरियर प्रोफ़ाइल",
+    "subtitle": "आपकी सत्यापित कैरियर प्रोफ़ाइल आपकी शैक्षणिक पृष्ठभूमि, सत्यापित तकनीकी क्षमताओं और पोर्टफोलियो को रिक्रूटर्स के समक्ष प्रस्तुत करती है।",
+    "headline": "व्यावसायिक शीर्षक (Headline)",
+    "headlinePlaceholder": "उदा. Full-Stack Developer | Python & React",
+    "careerObjective": "कैरियर उद्देश्य",
+    "cgpa": "CGPA / प्रतिशत",
+    "workMode": "पसंदीदा कार्य मोड",
+    "workModes": {
+      "remote": "रिमोट (Remote)",
+      "hybrid": "हाइब्रिड (Hybrid)",
+      "onsite": "ऑन-साइट (On-site)"
+    },
+    "addSkill": "कौशल जोड़ें",
+    "socialLinks": "ऑनलाइन प्रोफ़ाइल और पोर्टफोलियो",
+    "githubUrl": "GitHub प्रोफ़ाइल लिंक",
+    "linkedinUrl": "LinkedIn प्रोफ़ाइल लिंक",
+    "portfolioUrl": "पोर्टफोलियो वेबसाइट लिंक"
+  },
+  "resumeBuilder": {
+    "title": "ATS रेज़्युमे बिल्डर",
+    "subtitle": "कॉलेज प्लेसमेंट और ऑफ-कैंपस कॉरपोरेट भर्ती के लिए उद्योग-मानक ATS-अनुकूल रेज़्युमे तैयार करें।",
+    "templates": {
+      "modern": "आधुनिक स्वच्छ (Modern Clean)",
+      "professional": "कार्यकारी पेशेवर (Executive Professional)",
+      "minimal": "सरल शैक्षणिक (Minimal Academic)"
+    },
+    "downloadPdf": "ATS PDF डाउनलोड करें",
+    "feedbackTitle": "AI ATS फीडबैक एवं कीवर्ड विश्लेषण",
+    "versions": "सहेजे गए रेज़्युमे संस्करण"
+  },
+  "applications": {
+    "title": "मेरे आवेदन",
+    "noApplications": "आपने अभी तक किसी प्लेसमेंट ड्राइव में आवेदन नहीं किया है।",
+    "appliedOn": "{{date}} को आवेदित",
+    "status": {
+      "submitted": "जमा किया गया",
+      "underReview": "समीक्षाधीन",
+      "shortlisted": "शॉर्टलिस्टेड",
+      "rejected": "शॉर्टलिस्ट नहीं हुआ",
+      "interviewScheduled": "साक्षात्कार निर्धारित",
+      "selected": "चयनित / ऑफर प्राप्त",
+      "withdrawn": "वापस लिया गया"
+    }
+  }
+}

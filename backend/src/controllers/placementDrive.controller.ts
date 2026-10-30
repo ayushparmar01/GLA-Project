@@ -312,7 +312,7 @@ export const getDriveById = async (req: Request, res: Response): Promise<void> =
 
     // Role-based authorization
     if (req.user?.role === 'COLLEGE') {
-      if (drive.collegeId.toString() !== req.user.sub) {
+      if (!drive.collegeId || drive.collegeId.toString() !== req.user.sub) {
         res.status(403).json({
           success: false,
           error: { code: 'FORBIDDEN', message: 'You do not have access to placement drives of another college.' },
@@ -398,7 +398,7 @@ export const updateDrive = async (req: Request, res: Response): Promise<void> =>
       return;
     }
 
-    if (drive.collegeId.toString() !== req.user?.sub) {
+    if (!drive.collegeId || drive.collegeId.toString() !== req.user?.sub) {
       res.status(403).json({
         success: false,
         error: { code: 'FORBIDDEN', message: 'You can only update drives created by your college.' },
@@ -573,7 +573,7 @@ export const publishDrive = async (req: Request, res: Response): Promise<void> =
       return;
     }
 
-    if (drive.collegeId.toString() !== req.user?.sub) {
+    if (!drive.collegeId || drive.collegeId.toString() !== req.user?.sub) {
       res.status(403).json({
         success: false,
         error: { code: 'FORBIDDEN', message: 'You can only publish drives created by your college.' },
@@ -650,7 +650,7 @@ export const closeDrive = async (req: Request, res: Response): Promise<void> => 
       return;
     }
 
-    if (drive.collegeId.toString() !== req.user?.sub) {
+    if (!drive.collegeId || drive.collegeId.toString() !== req.user?.sub) {
       res.status(403).json({
         success: false,
         error: { code: 'FORBIDDEN', message: 'You can only close drives created by your college.' },
@@ -715,7 +715,7 @@ export const cancelDrive = async (req: Request, res: Response): Promise<void> =>
       return;
     }
 
-    if (drive.collegeId.toString() !== req.user?.sub) {
+    if (!drive.collegeId || drive.collegeId.toString() !== req.user?.sub) {
       res.status(403).json({
         success: false,
         error: { code: 'FORBIDDEN', message: 'You can only cancel drives created by your college.' },

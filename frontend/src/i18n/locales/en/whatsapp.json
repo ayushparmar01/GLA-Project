@@ -1,0 +1,34 @@
+{
+  "title": "WhatsApp Career Assistant",
+  "subtitle": "Get instant placement alerts, application status changes, interview reminders, and AI career guidance on your phone.",
+  "connected": "Connected",
+  "notLinked": "Not Linked",
+  "linkAccount": "Link WhatsApp Account",
+  "unlinkAccount": "Unlink Account",
+  "confirmUnlink": "Confirm Unlink",
+  "modalTitle": "Connect WhatsApp Career Assistant",
+  "modalSubtitle": "Receive instant job notifications and guidance on your phone.",
+  "phoneLabel": "Your WhatsApp Mobile Number",
+  "generateCode": "Generate Secure Link Code",
+  "timerCountdown": "Expires in {{minutes}}:{{seconds}}",
+  "codeInstructions": "Send this code to our official CareerBridge WhatsApp Assistant:",
+  "copied": "Copied to clipboard!",
+  "preferencesTitle": "Notification Preferences",
+  "preferences": {
+    "jobAlerts": "Instant Placement Drive Alerts",
+    "jobAlertsDesc": "Notify me when new campus drives match my degree and branch",
+    "applicationUpdates": "Application Status Updates",
+    "applicationUpdatesDesc": "Real-time alerts when recruiters review or shortlist my application",
+    "interviewAlerts": "Interview Scheduling Reminders",
+    "interviewAlertsDesc": "Reminders 24 hours before online/offline interview rounds",
+    "careerTips": "AI Career Guidance & Tips",
+    "careerTipsDesc": "Weekly preparation roadmaps, mock questions, and industry trends"
+  },
+  "simulator": {
+    "title": "CareerBridge Assistant",
+    "badge": "DEMO SIMULATOR",
+    "online": "online",
+    "typePlaceholder": "Type a command or message...",
+    "quickActions": "Quick Commands:"
+  }
+}

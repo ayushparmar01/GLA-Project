@@ -1,0 +1,22 @@
+{
+  "title": "Campus Placement Drives & Opportunities",
+  "subtitle": "Verified on-campus and pooled drives available for your college cohort.",
+  "searchPlaceholder": "Search by job role, skill, company...",
+  "filterRole": "Job Role",
+  "filterLocation": "Location",
+  "filterMode": "Work Mode",
+  "driveType": {
+    "onCampus": "On-Campus Drive",
+    "pooled": "Regional Pooled Drive",
+    "offCampus": "Direct Employer Posting"
+  },
+  "package": "Salary / CTC",
+  "locations": "Job Locations",
+  "eligibilityStatus": {
+    "eligible": "Eligible to Apply",
+    "notEligible": "Not Eligible",
+    "applied": "Already Applied"
+  },
+  "deadline": "Closes on {{date}}",
+  "viewEligibility": "Check Eligibility Scorecard"
+}

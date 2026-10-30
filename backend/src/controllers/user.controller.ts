@@ -2,6 +2,9 @@ import { Request, Response } from 'express';
 import { User } from '../models/user.model.js';
 import { getDbStatus } from '../config/db.js';
 
+export const SUPPORTED_LANGUAGES = ['en', 'hi', 'hi-Latn'] as const;
+export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
+
 export const updateMe = async (req: Request, res: Response): Promise<void> => {
   if (!req.user) {
     res.status(401).json({
@@ -71,7 +74,10 @@ export const updateMe = async (req: Request, res: Response): Promise<void> => {
     }
 
     if (typeof updates.preferredLanguage === 'string') {
-      user.preferredLanguage = updates.preferredLanguage.trim().substring(0, 10);
+      const lang = updates.preferredLanguage.trim();
+      if ((SUPPORTED_LANGUAGES as readonly string[]).includes(lang)) {
+        user.preferredLanguage = lang;
+      }
     }
 
     if (typeof updates.phoneNumber === 'string') {
@@ -161,6 +167,79 @@ export const updateMe = async (req: Request, res: Response): Promise<void> => {
       error: {
         code: 'PERSISTENCE_ERROR',
         message: 'Failed to update user profile due to database communication error.',
+      },
+    });
+  }
+};
+
+export const updateLanguagePreference = async (req: Request, res: Response): Promise<void> => {
+  if (!req.user) {
+    res.status(401).json({
+      success: false,
+      error: {
+        code: 'UNAUTHORIZED',
+        message: 'Authentication required to update language preference.',
+      },
+    });
+    return;
+  }
+
+  const { preferredLanguage } = req.body;
+  if (
+    !preferredLanguage ||
+    typeof preferredLanguage !== 'string' ||
+    !(SUPPORTED_LANGUAGES as readonly string[]).includes(preferredLanguage)
+  ) {
+    res.status(400).json({
+      success: false,
+      error: {
+        code: 'INVALID_LANGUAGE_CODE',
+        message: `Invalid language code. Supported languages are: ${SUPPORTED_LANGUAGES.join(', ')}`,
+      },
+    });
+    return;
+  }
+
+  const dbStatus = getDbStatus();
+  if (dbStatus.status !== 'connected') {
+    res.status(503).json({
+      success: false,
+      error: {
+        code: 'DATABASE_UNAVAILABLE',
+        message: 'Database service is currently offline. Cannot update language preference.',
+      },
+    });
+    return;
+  }
+
+  try {
+    const user = await User.findById(req.user.sub);
+    if (!user) {
+      res.status(404).json({
+        success: false,
+        error: {
+          code: 'USER_NOT_FOUND',
+          message: 'User profile not found.',
+        },
+      });
+      return;
+    }
+
+    user.preferredLanguage = preferredLanguage;
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      preferredLanguage: user.preferredLanguage,
+      message: 'Language preference updated successfully.',
+    });
+  } catch (error) {
+    console.error('[UpdateLanguagePreference Error]:', error);
+    res.status(503).json({
+      success: false,
+      error: {
+        code: 'PERSISTENCE_ERROR',
+        message: 'Failed to update language preference due to database communication error.',
       },
     });
   }

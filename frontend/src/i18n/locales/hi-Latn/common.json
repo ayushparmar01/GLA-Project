@@ -1,0 +1,79 @@
+{
+  "brand": {
+    "name": "CareerBridge",
+    "tagline": "Colleges without Placement Cell ke liye Career Access",
+    "mission": "India ke 35,000+ Tier-2, Tier-3 aur rural colleges ke liye corporate hiring democratization"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "cohorts": "Cohorts",
+    "drives": "Campus Drives",
+    "opportunities": "Opportunities",
+    "candidates": "Candidates",
+    "interviews": "Interviews",
+    "connections": "College Partnerships",
+    "mentorship": "Mentorship & Alumni Connect",
+    "controlCentre": "Admin Centre",
+    "notifications": "Notifications",
+    "login": "Sign In",
+    "register": "Register",
+    "logout": "Log Out"
+  },
+  "actions": {
+    "save": "Changes Save Karein",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm Karein",
+    "apply": "Apply Karein",
+    "applied": "Applied",
+    "submit": "Submit Karein",
+    "back": "Back",
+    "backToDashboard": "Dashboard par Wapas Jayein",
+    "search": "Search karein...",
+    "filter": "Filter",
+    "refresh": "Refresh",
+    "viewDetails": "Details Dekhein",
+    "download": "Download",
+    "preview": "Preview",
+    "close": "Close",
+    "next": "Next",
+    "previous": "Previous",
+    "link": "Account Link Karein",
+    "unlink": "Unlink Karein"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending",
+    "verified": "Verified",
+    "unverified": "Unverified",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "suspended": "Suspended",
+    "completed": "Completed",
+    "inProgress": "In Progress",
+    "healthy": "Healthy",
+    "degraded": "Degraded",
+    "connected": "Connected",
+    "disconnected": "Disconnected"
+  },
+  "feedback": {
+    "loading": "Loading ho raha hai...",
+    "savingChanges": "Changes save ho rahe hain...",
+    "success": "Action successfully complete ho gaya.",
+    "error": "Kuch problem hui. Please dobara try karein.",
+    "noData": "Koi records nahi mile.",
+    "networkError": "Network error. Please internet check karein."
+  },
+  "language": {
+    "selectLanguage": "Language Choose Karein",
+    "currentLanguage": "Current Language",
+    "english": "English",
+    "hindi": "हिंदी",
+    "hinglish": "Hinglish",
+    "updated": "Language preference successfully update ho gayi."
+  }
+}

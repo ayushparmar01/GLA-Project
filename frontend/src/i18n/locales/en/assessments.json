@@ -1,0 +1,24 @@
+{
+  "title": "Skill Assessments & Verification",
+  "subtitle": "Prove your technical problem-solving ability to recruiters through standardized assessments.",
+  "duration": "Duration: {{minutes}} minutes",
+  "questionsCount": "{{count}} Questions",
+  "passingMarks": "Passing: {{marks}}%",
+  "startAssessment": "Start Assessment",
+  "resumeAssessment": "Resume Assessment",
+  "verifiedBadge": "Skill Verified",
+  "unverifiedBadge": "Self-Declared",
+  "categories": {
+    "dsa": "Data Structures & Algorithms",
+    "webDev": "Web Development",
+    "databases": "Databases & SQL",
+    "cloud": "Cloud Computing",
+    "coreCs": "Core Computer Science"
+  },
+  "scorecard": {
+    "title": "Assessment Evaluation Scorecard",
+    "score": "Score: {{score}}%",
+    "result": "Result: {{result}}",
+    "breakdown": "Question Analysis & Explanations"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "controlCentre": {
+    "title": "Admin Control Centre",
+    "subtitle": "Platform governance, compliance oversight, corporate verification, and placement outcomes monitoring.",
+    "totalUsers": "Total Registered Users",
+    "students": "Students",
+    "employers": "Employers",
+    "colleges": "Colleges",
+    "activeOpportunities": "Published Opportunities",
+    "totalApplications": "Total Applications",
+    "pendingVerifications": "Pending Employer Verifications",
+    "recentActivity": "Recent Administrative Actions"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "users": "User Governance",
+    "employers": "Employer Verification",
+    "colleges": "College Supervision",
+    "moderation": "Content Moderation",
+    "analytics": "Placement Analytics",
+    "auditLogs": "Audit Trail",
+    "systemHealth": "System Health",
+    "whatsapp": "WhatsApp Integration"
+  },
+  "userGovernance": {
+    "title": "User Account Management",
+    "suspendBtn": "Suspend Account",
+    "reactivateBtn": "Reactivate Account",
+    "suspendReasonPrompt": "Please provide a documented reason for this suspension:",
+    "selfSuspensionForbidden": "Super-admin accounts cannot suspend their own identity."
+  },
+  "moderation": {
+    "title": "Content Moderation Desk",
+    "flaggedItem": "Reported Item",
+    "reason": "Report Reason",
+    "reportedBy": "Reported By",
+    "resolveKeep": "Approve Content",
+    "resolveRemove": "Remove Content",
+    "dismiss": "Dismiss Report"
+  }
+}

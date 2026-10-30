@@ -1,0 +1,22 @@
+{
+  "title": "Campus Placement Drives & Opportunities",
+  "subtitle": "Aapke college cohort ke liye available verified on-campus aur pooled drives.",
+  "searchPlaceholder": "Job role, skill, company search karein...",
+  "filterRole": "Job Role",
+  "filterLocation": "Location",
+  "filterMode": "Work Mode",
+  "driveType": {
+    "onCampus": "On-Campus Drive",
+    "pooled": "Regional Pooled Drive",
+    "offCampus": "Direct Employer Posting"
+  },
+  "package": "Salary / CTC",
+  "locations": "Job Locations",
+  "eligibilityStatus": {
+    "eligible": "Apply karne ke liye Eligible",
+    "notEligible": "Not Eligible",
+    "applied": "Already Applied"
+  },
+  "deadline": "{{date}} ko close hoga",
+  "viewEligibility": "Eligibility Scorecard Dekhein"
+}

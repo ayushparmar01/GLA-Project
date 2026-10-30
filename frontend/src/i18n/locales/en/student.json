@@ -1,0 +1,86 @@
+{
+  "dashboard": {
+    "welcome": "Welcome back, {{name}}!",
+    "portalBadge": "STUDENT PORTAL",
+    "completionTitle": "Profile Strength & Readiness",
+    "completionScore": "Profile Completion Score",
+    "academicInfo": "Academic Information",
+    "institution": "Institution / College",
+    "course": "Degree & Branch",
+    "educationLevel": "Education Level",
+    "graduationYear": "Graduation Year",
+    "skills": "Technical & Soft Skills",
+    "careerInterests": "Career Interests",
+    "preferredLocations": "Preferred Work Locations",
+    "exploreDrives": "Explore Campus Drives",
+    "placementDeskBanner": "Campus Drives & Cohort Participation",
+    "placementDeskDesc": "Browse placement drives published by your college, verify your eligibility with explainable criteria, and track recruitment rounds.",
+    "whatsAppBannerTitle": "Career Updates & AI Guidance on Your Phone",
+    "whatsAppBannerDesc": "Link your WhatsApp to receive instant placement alerts, application status changes, interview reminders, and 24/7 AI career counseling without internet browsing.",
+    "configureWhatsApp": "Configure WhatsApp"
+  },
+  "readiness": {
+    "title": "Career Readiness Score",
+    "compositeScore": "Composite Career Readiness Score",
+    "disclaimer": "This score is an explainable heuristic based on your completed profile sections, verified skills, and projects. It is an advisory metric to assist your preparation and does not guarantee job placement.",
+    "bands": {
+      "highlyJobReady": "Highly Job Ready",
+      "jobReady": "Job Ready",
+      "developing": "Developing Readiness",
+      "earlyStage": "Early Stage"
+    },
+    "pillars": {
+      "profileCompleteness": "Profile Completeness",
+      "skillsAssessment": "Verified Skill Assessments",
+      "projectsPortfolio": "Project Portfolio",
+      "academics": "Academic Records",
+      "resume": "ATS Resume Ready",
+      "certifications": "Certifications"
+    }
+  },
+  "careerProfile": {
+    "title": "Student Career Profile",
+    "subtitle": "Your verified career profile showcases your academic background, verified technical abilities, and portfolio to corporate recruiters.",
+    "headline": "Professional Headline",
+    "headlinePlaceholder": "e.g., Aspiring Full-Stack Developer | Python & React",
+    "careerObjective": "Career Objective",
+    "cgpa": "CGPA / Percentage",
+    "workMode": "Preferred Work Mode",
+    "workModes": {
+      "remote": "Remote",
+      "hybrid": "Hybrid",
+      "onsite": "On-Site"
+    },
+    "addSkill": "Add Skill",
+    "socialLinks": "Online Profiles & Portfolio",
+    "githubUrl": "GitHub Profile URL",
+    "linkedinUrl": "LinkedIn Profile URL",
+    "portfolioUrl": "Portfolio Website URL"
+  },
+  "resumeBuilder": {
+    "title": "ATS Resume Builder",
+    "subtitle": "Create industry-standard ATS-friendly resumes tailored for college campus placements and off-campus corporate hiring.",
+    "templates": {
+      "modern": "Modern Clean",
+      "professional": "Executive Professional",
+      "minimal": "Minimal Academic"
+    },
+    "downloadPdf": "Download ATS PDF",
+    "feedbackTitle": "AI ATS Feedback & Keyword Analysis",
+    "versions": "Saved Resume Versions"
+  },
+  "applications": {
+    "title": "My Applications",
+    "noApplications": "You haven't applied to any placement drives yet.",
+    "appliedOn": "Applied on {{date}}",
+    "status": {
+      "submitted": "Submitted",
+      "underReview": "Under Review",
+      "shortlisted": "Shortlisted",
+      "rejected": "Not Shortlisted",
+      "interviewScheduled": "Interview Scheduled",
+      "selected": "Selected / Offer Made",
+      "withdrawn": "Withdrawn"
+    }
+  }
+}

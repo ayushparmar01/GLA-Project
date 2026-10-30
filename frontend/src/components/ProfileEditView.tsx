@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from '../i18n/I18nContext';
+import { LanguageSelector } from './common/LanguageSelector';
+import { SupportedLanguage } from '../i18n/types';
 import { User, Lock, Mail, Globe, Phone, Building, ArrowLeft, Save, Plus, X, AlertCircle, CheckCircle } from 'lucide-react';
+import { WhatsAppIntegrationCard } from './whatsapp/WhatsAppIntegrationCard';
+import { WhatsAppAssistantPreview } from './whatsapp/WhatsAppAssistantPreview';
 
 interface ProfileEditViewProps {
   onBack: () => void;
 }
 
 export const ProfileEditView: React.FC<ProfileEditViewProps> = ({ onBack }) => {
-  const { user, updateProfile } = useAuth();
+  const { user, token, updateProfile } = useAuth();
+  const { t, changeLanguage, supportedLanguages } = useTranslation();
+  const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
 
   // Base fields
   const [fullName, setFullName] = useState(user?.fullName || '');
@@ -187,14 +194,17 @@ export const ProfileEditView: React.FC<ProfileEditViewProps> = ({ onBack }) => {
       <div className="mb-6 flex items-center justify-between">
         <button
           onClick={onBack}
-          className="inline-flex items-center space-x-1.5 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
+          className="inline-flex items-center space-x-1.5 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Back to Dashboard</span>
+          <span>{t('actions.backToDashboard')}</span>
         </button>
-        <span className="text-xs text-slate-500 font-mono">
-          Security: Role & Identity Immutable
-        </span>
+        <div className="flex items-center gap-3">
+          <LanguageSelector variant="compact" />
+          <span className="hidden sm:inline text-xs text-slate-500 font-mono">
+            Security: Role & Identity Immutable
+          </span>
+        </div>
       </div>
 
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
@@ -272,20 +282,23 @@ export const ProfileEditView: React.FC<ProfileEditViewProps> = ({ onBack }) => {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Preferred Language</label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">{t('common.language.selectLanguage')}</label>
               <div className="relative">
                 <Globe className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
                 <select
                   value={preferredLanguage}
-                  onChange={(e) => setPreferredLanguage(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white"
+                  onChange={(e) => {
+                    const val = e.target.value as SupportedLanguage;
+                    setPreferredLanguage(val);
+                    changeLanguage(val);
+                  }}
+                  className="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white cursor-pointer"
                 >
-                  <option value="en">English</option>
-                  <option value="hi">हिंदी (Hindi)</option>
-                  <option value="ta">தமிழ் (Tamil)</option>
-                  <option value="te">తెలుగు (Telugu)</option>
-                  <option value="mr">मराठी (Marathi)</option>
-                  <option value="bn">বাংলা (Bengali)</option>
+                  {supportedLanguages.map((lang) => (
+                    <option key={lang.code} value={lang.code}>
+                      {lang.flag} {lang.nativeName} ({lang.name})
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -668,6 +681,21 @@ export const ProfileEditView: React.FC<ProfileEditViewProps> = ({ onBack }) => {
           </div>
         </form>
       </div>
+
+      {/* Student WhatsApp Career Assistant Integration (Phase 10) */}
+      {user.role === 'STUDENT' && (
+        <div className="mt-8">
+          <WhatsAppIntegrationCard
+            token={token}
+            onPreviewRequested={() => setIsSimulatorOpen(true)}
+          />
+        </div>
+      )}
+
+      {/* Interactive WhatsApp Assistant Simulator Modal */}
+      {isSimulatorOpen && (
+        <WhatsAppAssistantPreview onClose={() => setIsSimulatorOpen(false)} />
+      )}
     </div>
   );
 };

@@ -1,0 +1,30 @@
+{
+  "dashboard": {
+    "title": "College Placement Cell Desk",
+    "subtitle": "Student cohorts automate karein, verified drives broadcast karein, aur recruiters se tie-up karein.",
+    "totalStudents": "Enrolled Students",
+    "activeCohorts": "Active Cohorts",
+    "campusDrives": "Active Drives",
+    "placementRate": "Placed Students Rate",
+    "createCohort": "Academic Cohort Banayein",
+    "publishDrive": "Placement Drive Publish Karein",
+    "connectEmployers": "Recruiter Partnerships"
+  },
+  "cohorts": {
+    "title": "Student Cohort Management",
+    "createTitle": "Naya Academic Cohort Banayein",
+    "name": "Cohort Name",
+    "academicYear": "Academic Year",
+    "degree": "Degree / Department",
+    "enrollStudents": "Email se Students Enroll Karein",
+    "studentRoster": "Student Roster"
+  },
+  "drives": {
+    "title": "Placement Drives & Eligibility",
+    "createDrive": "Drive Create Karein",
+    "eligibilityRules": "Eligibility Rules (CGPA, Course, Backlogs)",
+    "deadline": "Application Deadline",
+    "totalEligible": "Eligible Students",
+    "reviewApplications": "Applications Review Karein"
+  }
+}

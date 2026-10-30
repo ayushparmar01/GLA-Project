@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="cbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Rounded Background -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Border -->
+  <rect x="8" y="8" width="496" height="496" rx="120" fill="none" stroke="#10b981" stroke-width="6" stroke-opacity="0.4"/>
+  
+  <!-- Bridge Arcs (Democratizing Career Access) -->
+  <path d="M 80 380 Q 256 260 432 380" fill="none" stroke="#334155" stroke-width="16" stroke-linecap="round"/>
+  <path d="M 120 380 Q 256 290 392 380" fill="none" stroke="url(#cbGrad)" stroke-width="12" stroke-linecap="round"/>
+  
+  <!-- Vertical Suspension Cables -->
+  <line x1="180" y1="335" x2="180" y2="380" stroke="#10b981" stroke-width="6" stroke-linecap="round" stroke-opacity="0.6"/>
+  <line x1="220" y1="310" x2="220" y2="380" stroke="#10b981" stroke-width="6" stroke-linecap="round" stroke-opacity="0.8"/>
+  <line x1="256" y1="300" x2="256" y2="380" stroke="#34d399" stroke-width="8" stroke-linecap="round"/>
+  <line x1="292" y1="310" x2="292" y2="380" stroke="#10b981" stroke-width="6" stroke-linecap="round" stroke-opacity="0.8"/>
+  <line x1="332" y1="335" x2="332" y2="380" stroke="#10b981" stroke-width="6" stroke-linecap="round" stroke-opacity="0.6"/>
+
+  <!-- Academic Cap / Graduation Diamond -->
+  <path d="M 256 120 L 416 190 L 256 260 L 96 190 Z" fill="url(#cbGrad)"/>
+  
+  <!-- Cap Lower Base -->
+  <path d="M 160 218 L 160 280 C 160 320 352 320 352 280 L 352 218 L 256 260 Z" fill="#047857"/>
+  
+  <!-- Tassel Cord & Bob -->
+  <path d="M 400 196 L 416 270" stroke="#fbbf24" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="416" cy="280" r="14" fill="#f59e0b"/>
+</svg>

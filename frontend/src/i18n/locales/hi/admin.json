@@ -1,0 +1,41 @@
+{
+  "controlCentre": {
+    "title": "एडमिन नियंत्रण केंद्र",
+    "subtitle": "प्लेटफ़ॉर्म प्रशासन, अनुपालन निरीक्षण, कॉरपोरेट सत्यापन और प्लेसमेंट परिणामों की निगरानी।",
+    "totalUsers": "कुल पंजीकृत उपयोगकर्ता",
+    "students": "छात्र",
+    "employers": "नियोक्ता",
+    "colleges": "कॉलेज",
+    "activeOpportunities": "प्रकाशित अवसर",
+    "totalApplications": "कुल आवेदन",
+    "pendingVerifications": "लंबित नियोक्ता सत्यापन",
+    "recentActivity": "हाल की प्रशासनिक कार्रवाइयां"
+  },
+  "tabs": {
+    "overview": "अवलोकन",
+    "users": "उपयोगकर्ता शासन",
+    "employers": "नियोक्ता सत्यापन",
+    "colleges": "कॉलेज पर्यवेक्षण",
+    "moderation": "सामग्री मॉडरेशन",
+    "analytics": "प्लेसमेंट विश्लेषण",
+    "auditLogs": "ऑडिट ट्रेल",
+    "systemHealth": "सिस्टम स्वास्थ्य",
+    "whatsapp": "WhatsApp एकीकरण"
+  },
+  "userGovernance": {
+    "title": "उपयोगकर्ता खाता प्रबंधन",
+    "suspendBtn": "खाता निलंबित करें",
+    "reactivateBtn": "खाता पुनः सक्रिय करें",
+    "suspendReasonPrompt": "कृपया इस निलंबन के लिए एक प्रलेखित कारण प्रदान करें:",
+    "selfSuspensionForbidden": "सुपर-एडमिन खाते अपनी पहचान को निलंबित नहीं कर सकते।"
+  },
+  "moderation": {
+    "title": "सामग्री मॉडरेशन डेस्क",
+    "flaggedItem": "रिपोर्ट की गई सामग्री",
+    "reason": "रिपोर्ट का कारण",
+    "reportedBy": "द्वारा रिपोर्ट किया गया",
+    "resolveKeep": "सामग्री स्वीकृत करें",
+    "resolveRemove": "सामग्री हटाएं",
+    "dismiss": "रिपोर्ट खारिज करें"
+  }
+}

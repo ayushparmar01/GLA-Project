@@ -56,7 +56,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
   }
 
   // 2. Validate role
-  const validRoles: Role[] = ['STUDENT', 'EMPLOYER', 'COLLEGE'];
+  const validRoles: Role[] = ['STUDENT', 'EMPLOYER', 'COLLEGE', 'MENTOR'];
   if (!role || !validRoles.includes(role as Role)) {
     res.status(400).json({
       success: false,
@@ -236,6 +236,17 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         error: {
           code: 'ACCOUNT_DEACTIVATED',
           message: 'This account has been deactivated. Please contact support.',
+        },
+      });
+      return;
+    }
+
+    if (user.isSuspended) {
+      res.status(403).json({
+        success: false,
+        error: {
+          code: 'ACCOUNT_SUSPENDED',
+          message: `This account has been suspended: ${user.suspensionReason || 'Violation of platform terms'}. Please contact administrator.`,
         },
       });
       return;

@@ -1,0 +1,21 @@
+{
+  "title": "सूचनाएं एवं अलर्ट",
+  "unreadCount": "{{count}} अपठित",
+  "markAllAsRead": "सभी को पढ़ा हुआ चिह्नित करें",
+  "emptyState": "आप पूरी तरह अपडेट हैं! कोई अपठित सूचना नहीं है।",
+  "types": {
+    "applicationSubmitted": "आवेदन जमा हुआ",
+    "applicationStatusChanged": "आवेदन स्थिति बदली",
+    "interviewScheduled": "साक्षात्कार निर्धारित",
+    "drivePublished": "नई कैंपस ड्राइव प्रकाशित",
+    "eventAnnouncement": "कैरियर कार्यक्रम घोषणा",
+    "systemAnnouncement": "सिस्टम सूचना"
+  },
+  "events": {
+    "title": "कैरियर कार्यक्रम एवं कार्यशालाएं",
+    "upcoming": "आगामी कार्यक्रम",
+    "registered": "पंजीकृत",
+    "registerNow": "निःशुल्क पंजीकरण करें",
+    "cancelRegistration": "पंजीकरण रद्द करें"
+  }
+}

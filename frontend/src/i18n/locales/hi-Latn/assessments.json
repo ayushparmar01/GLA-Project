@@ -1,0 +1,24 @@
+{
+  "title": "Skill Assessments & Verification",
+  "subtitle": "Standardized tests dekar recruiters ke saamne apni problem-solving skills prove karein.",
+  "duration": "Duration: {{minutes}} minutes",
+  "questionsCount": "{{count}} Questions",
+  "passingMarks": "Passing: {{marks}}%",
+  "startAssessment": "Test Start Karein",
+  "resumeAssessment": "Test Resume Karein",
+  "verifiedBadge": "Skill Verified",
+  "unverifiedBadge": "Self-Declared",
+  "categories": {
+    "dsa": "Data Structures & Algorithms (DSA)",
+    "webDev": "Web Development",
+    "databases": "Databases & SQL",
+    "cloud": "Cloud Computing",
+    "coreCs": "Core Computer Science"
+  },
+  "scorecard": {
+    "title": "Assessment Evaluation Scorecard",
+    "score": "Score: {{score}}%",
+    "result": "Result: {{result}}",
+    "breakdown": "Question Analysis & Explanations"
+  }
+}

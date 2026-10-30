@@ -4,7 +4,7 @@ import { PlacementApplicationData, ApplicationStatus, ApplicationStatusHistoryIt
 export interface IPlacementApplication extends Document {
   driveId: Types.ObjectId;
   studentId: Types.ObjectId;
-  collegeId: Types.ObjectId;
+  collegeId?: Types.ObjectId;
   status: ApplicationStatus;
   appliedAt: Date;
   statusHistory: Array<{
@@ -64,7 +64,6 @@ const PlacementApplicationSchema = new Schema<IPlacementApplication>(
     collegeId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: [true, 'College ID is required'],
       index: true,
     },
     status: {
@@ -90,6 +89,11 @@ const PlacementApplicationSchema = new Schema<IPlacementApplication>(
 // Compound unique index: A student can apply only once to a placement drive
 PlacementApplicationSchema.index({ driveId: 1, studentId: 1 }, { unique: true });
 
+// High-performance compound indexes for application lookups, filtering, and sorting
+PlacementApplicationSchema.index({ studentId: 1, appliedAt: -1 });
+PlacementApplicationSchema.index({ driveId: 1, status: 1 });
+PlacementApplicationSchema.index({ collegeId: 1, status: 1 });
+
 PlacementApplicationSchema.methods.toSafeObject = function (
   this: IPlacementApplication,
   drive?: Partial<PlacementDriveData>,
@@ -99,7 +103,7 @@ PlacementApplicationSchema.methods.toSafeObject = function (
     id: (this._id as Types.ObjectId).toString(),
     driveId: this.driveId.toString(),
     studentId: this.studentId.toString(),
-    collegeId: this.collegeId.toString(),
+    collegeId: this.collegeId ? this.collegeId.toString() : undefined,
     status: this.status,
     appliedAt: this.appliedAt ? this.appliedAt.toISOString() : new Date().toISOString(),
     statusHistory: Array.isArray(this.statusHistory)

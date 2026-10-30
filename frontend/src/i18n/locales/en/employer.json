@@ -1,0 +1,35 @@
+{
+  "dashboard": {
+    "title": "Corporate Recruitment Desk",
+    "subtitle": "Discover and hire job-ready talent from colleges with no dedicated placement cell.",
+    "activeOpenings": "Active Opportunities",
+    "totalApplicants": "Total Applicants",
+    "interviewsScheduled": "Interviews Scheduled",
+    "partnerColleges": "Partner Colleges",
+    "postOpportunity": "Post New Opportunity",
+    "manageOpportunities": "Manage Drives & Opportunities",
+    "reviewCandidates": "Review Candidate Applications",
+    "scheduleInterviews": "Schedule & Track Interviews",
+    "collegeNetwork": "Institutional College Network"
+  },
+  "companyProfile": {
+    "title": "Company Profile & Verification",
+    "name": "Company Name",
+    "website": "Company Website",
+    "industry": "Industry Sector",
+    "companySize": "Company Size",
+    "description": "About the Organization",
+    "verificationStatus": "Corporate Verification Status",
+    "trustPolicy": "Trust & Safety Policy: CareerBridge verifies recruiters to prevent job seekers from paying fees or falling victim to fraudulent drives."
+  },
+  "candidateDesk": {
+    "title": "Applicant Review Desk",
+    "statusFilter": "Filter by Application Status",
+    "scoreFilter": "Minimum Readiness Score",
+    "anonymousNotice": "Student privacy is protected. Identifying contact details are only disclosed upon shortlisting.",
+    "viewResume": "View ATS Resume",
+    "scheduleInterview": "Schedule Interview",
+    "shortlist": "Shortlist Candidate",
+    "reject": "Mark Unsuccessful"
+  }
+}

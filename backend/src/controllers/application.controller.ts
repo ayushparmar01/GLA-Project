@@ -7,6 +7,7 @@ import { User } from '../models/user.model.js';
 import { getDbStatus } from '../config/db.js';
 import { evaluateEligibility } from '../services/eligibility.service.js';
 import { ApplicationStatus } from '../types/index.js';
+import { NotificationService } from '../services/notification/notification.service.js';
 
 const ALLOWED_COLLEGE_STATUSES: ApplicationStatus[] = ['SHORTLISTED', 'INTERVIEW_SCHEDULED', 'SELECTED', 'REJECTED'];
 
@@ -146,6 +147,29 @@ export const applyToDrive = async (req: Request, res: Response): Promise<void> =
 
     await application.save();
 
+    // Trigger in-app notification for the student
+    const notifService = NotificationService.getInstance();
+    await notifService.createNotification({
+      recipientId: studentUser._id.toString(),
+      type: 'APPLICATION_SUBMITTED',
+      title: `Application Submitted: ${drive.title}`,
+      message: `Your application for ${drive.title} at ${drive.organizationName} was submitted successfully.`,
+      relatedEntityType: 'APPLICATION',
+      relatedEntityId: application._id.toString(),
+    });
+
+    // Notify drive owner if createdBy exists
+    if (drive.createdBy) {
+      await notifService.createNotification({
+        recipientId: drive.createdBy.toString(),
+        type: 'APPLICATION_SUBMITTED',
+        title: `New Candidate Application: ${drive.title}`,
+        message: `${studentUser.fullName} has applied to ${drive.title}.`,
+        relatedEntityType: 'APPLICATION',
+        relatedEntityId: application._id.toString(),
+      });
+    }
+
     res.status(201).json({
       success: true,
       data: application.toSafeObject(drive.toSafeObject()),
@@ -251,7 +275,7 @@ export const listDriveApplications = async (req: Request, res: Response): Promis
       return;
     }
 
-    if (drive.collegeId.toString() !== req.user.sub) {
+    if (!drive.collegeId || drive.collegeId.toString() !== req.user.sub) {
       res.status(403).json({
         success: false,
         error: { code: 'FORBIDDEN', message: 'You can only view applications for drives owned by your college.' },
@@ -371,7 +395,7 @@ export const updateApplicationStatus = async (req: Request, res: Response): Prom
       return;
     }
 
-    if (application.collegeId.toString() !== req.user.sub) {
+    if (!application.collegeId || application.collegeId.toString() !== req.user.sub) {
       res.status(403).json({
         success: false,
         error: { code: 'FORBIDDEN', message: 'You can only review applications for your own college drives.' },
@@ -432,6 +456,16 @@ export const updateApplicationStatus = async (req: Request, res: Response): Prom
     });
 
     await application.save();
+
+    // Notify student about the status transition
+    await notifService.createNotification({
+      recipientId: application.studentId.toString(),
+      type: 'APPLICATION_STATUS_CHANGED',
+      title: `Application Status: ${status}`,
+      message: `Your placement application has been updated to ${status}.`,
+      relatedEntityType: 'APPLICATION',
+      relatedEntityId: application._id.toString(),
+    });
 
     res.status(200).json({
       success: true,
@@ -513,6 +547,16 @@ export const withdrawApplication = async (req: Request, res: Response): Promise<
     });
 
     await application.save();
+
+    // Notify student about the status transition
+    await notifService.createNotification({
+      recipientId: application.studentId.toString(),
+      type: 'APPLICATION_STATUS_CHANGED',
+      title: `Application Status: ${status}`,
+      message: `Your placement application has been updated to ${status}.`,
+      relatedEntityType: 'APPLICATION',
+      relatedEntityId: application._id.toString(),
+    });
 
     res.status(200).json({
       success: true,

@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from '../i18n/I18nContext';
+import { LanguageSelector } from './common/LanguageSelector';
+import { SupportedLanguage } from '../i18n/types';
 import { Role } from '../types';
 import { GraduationCap, Briefcase, School, User, Mail, Lock, Globe, Building, AlertCircle, ArrowRight } from 'lucide-react';
 
@@ -10,6 +13,7 @@ interface RegisterViewProps {
 
 export const RegisterView: React.FC<RegisterViewProps> = ({ onSuccess, onSwitchToLogin }) => {
   const { register } = useAuth();
+  const { t, language, changeLanguage, supportedLanguages } = useTranslation();
 
   const [role, setRole] = useState<Role>('STUDENT');
   const [fullName, setFullName] = useState('');
@@ -17,7 +21,7 @@ export const RegisterView: React.FC<RegisterViewProps> = ({ onSuccess, onSwitchT
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [institutionName, setInstitutionName] = useState('');
-  const [preferredLanguage, setPreferredLanguage] = useState('en');
+  const [preferredLanguage, setPreferredLanguage] = useState<SupportedLanguage>(language);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -82,14 +86,17 @@ export const RegisterView: React.FC<RegisterViewProps> = ({ onSuccess, onSwitchT
 
   return (
     <div className="max-w-xl mx-auto py-12 px-4 sm:px-6">
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 relative">
+        <div className="absolute top-4 right-4">
+          <LanguageSelector variant="compact" />
+        </div>
         <div className="text-center mb-8">
           <div className="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center mx-auto mb-3">
             <GraduationCap className="w-7 h-7" />
           </div>
-          <h2 className="text-2xl font-bold text-slate-900">Create CareerBridge Account</h2>
+          <h2 className="text-2xl font-bold text-slate-900">{t('auth.register.title')}</h2>
           <p className="text-slate-500 text-sm mt-1">
-            Bridging career access for colleges across Bharat with no placement cell
+            {t('auth.register.subtitle')}
           </p>
         </div>
 
@@ -223,20 +230,25 @@ export const RegisterView: React.FC<RegisterViewProps> = ({ onSuccess, onSwitchT
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Preferred Language</label>
+            <label className="block text-xs font-semibold text-slate-700 mb-1">
+              {t('auth.register.languageLabel')}
+            </label>
             <div className="relative">
               <Globe className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
               <select
                 value={preferredLanguage}
-                onChange={(e) => setPreferredLanguage(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white"
+                onChange={(e) => {
+                  const val = e.target.value as SupportedLanguage;
+                  setPreferredLanguage(val);
+                  changeLanguage(val);
+                }}
+                className="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white cursor-pointer"
               >
-                <option value="en">English</option>
-                <option value="hi">हिंदी (Hindi)</option>
-                <option value="ta">தமிழ் (Tamil)</option>
-                <option value="te">తెలుగు (Telugu)</option>
-                <option value="mr">मराठी (Marathi)</option>
-                <option value="bn">বাংলা (Bengali)</option>
+                {supportedLanguages.map((lang) => (
+                  <option key={lang.code} value={lang.code}>
+                    {lang.flag} {lang.nativeName} ({lang.name})
+                  </option>
+                ))}
               </select>
             </div>
           </div>

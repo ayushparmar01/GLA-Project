@@ -1,0 +1,79 @@
+{
+  "brand": {
+    "name": "CareerBridge",
+    "tagline": "Career Access for Colleges with No Placement Cell",
+    "mission": "Democratizing corporate hiring for 35,000+ Tier-2, Tier-3 and rural colleges across India"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "cohorts": "Cohorts",
+    "drives": "Campus Drives",
+    "opportunities": "Opportunities",
+    "candidates": "Candidates",
+    "interviews": "Interviews",
+    "connections": "College Partnerships",
+    "mentorship": "Mentorship & Alumni",
+    "controlCentre": "Admin Centre",
+    "notifications": "Notifications",
+    "login": "Sign In",
+    "register": "Register",
+    "logout": "Log Out"
+  },
+  "actions": {
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "apply": "Apply Now",
+    "applied": "Applied",
+    "submit": "Submit",
+    "back": "Back",
+    "backToDashboard": "Back to Dashboard",
+    "search": "Search...",
+    "filter": "Filter",
+    "refresh": "Refresh",
+    "viewDetails": "View Details",
+    "download": "Download",
+    "preview": "Preview",
+    "close": "Close",
+    "next": "Next",
+    "previous": "Previous",
+    "link": "Link Account",
+    "unlink": "Unlink Account"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending",
+    "verified": "Verified",
+    "unverified": "Unverified",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "suspended": "Suspended",
+    "completed": "Completed",
+    "inProgress": "In Progress",
+    "healthy": "Healthy",
+    "degraded": "Degraded",
+    "connected": "Connected",
+    "disconnected": "Disconnected"
+  },
+  "feedback": {
+    "loading": "Loading...",
+    "savingChanges": "Saving changes...",
+    "success": "Action completed successfully.",
+    "error": "An unexpected error occurred. Please try again.",
+    "noData": "No records found.",
+    "networkError": "Network error. Please check your internet connection."
+  },
+  "language": {
+    "selectLanguage": "Select Language",
+    "currentLanguage": "Current Language",
+    "english": "English",
+    "hindi": "हिंदी",
+    "hinglish": "Hinglish",
+    "updated": "Language preference updated successfully."
+  }
+}

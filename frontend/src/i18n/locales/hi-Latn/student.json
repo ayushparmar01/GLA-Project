@@ -1,0 +1,86 @@
+{
+  "dashboard": {
+    "welcome": "Welcome back, {{name}}!",
+    "portalBadge": "STUDENT PORTAL",
+    "completionTitle": "Profile Strength & Readiness",
+    "completionScore": "Profile Completion Score",
+    "academicInfo": "Academic Information",
+    "institution": "Institution / College",
+    "course": "Degree & Branch",
+    "educationLevel": "Education Level",
+    "graduationYear": "Graduation Year",
+    "skills": "Technical & Soft Skills",
+    "careerInterests": "Career Interests",
+    "preferredLocations": "Preferred Job Locations",
+    "exploreDrives": "Campus Drives Explore Karein",
+    "placementDeskBanner": "Campus Drives & Cohort Participation",
+    "placementDeskDesc": "Apne college ke placement drives dekhein, criteria ke mutabiq eligibility verify karein, aur recruitment rounds track karein.",
+    "whatsAppBannerTitle": "Career Updates aur AI Guidance aapke Phone par",
+    "whatsAppBannerDesc": "Direct placement alerts, status changes, interview reminders, aur 24/7 AI career counseling ke liye apna WhatsApp link karein.",
+    "configureWhatsApp": "WhatsApp Configure Karein"
+  },
+  "readiness": {
+    "title": "Career Readiness Score",
+    "compositeScore": "Composite Career Readiness Score",
+    "disclaimer": "Yeh score aapke completed profile sections, verified skills, aur projects ke basis par advisory metric hai. Yeh job guarantee claim nahi karta.",
+    "bands": {
+      "highlyJobReady": "Highly Job Ready",
+      "jobReady": "Job Ready",
+      "developing": "Developing Readiness",
+      "earlyStage": "Early Stage"
+    },
+    "pillars": {
+      "profileCompleteness": "Profile Completeness",
+      "skillsAssessment": "Verified Skill Assessments",
+      "projectsPortfolio": "Project Portfolio",
+      "academics": "Academic Records",
+      "resume": "ATS Resume Ready",
+      "certifications": "Certifications"
+    }
+  },
+  "careerProfile": {
+    "title": "Student Career Profile",
+    "subtitle": "Aapki verified profile aapke academic background, verified skills aur portfolio ko recruiters ke saamne present karti hai.",
+    "headline": "Professional Headline",
+    "headlinePlaceholder": "e.g., Aspiring Full-Stack Developer | Python & React",
+    "careerObjective": "Career Objective",
+    "cgpa": "CGPA / Percentage",
+    "workMode": "Preferred Work Mode",
+    "workModes": {
+      "remote": "Remote",
+      "hybrid": "Hybrid",
+      "onsite": "On-Site"
+    },
+    "addSkill": "Skill Add Karein",
+    "socialLinks": "Online Profiles & Portfolio",
+    "githubUrl": "GitHub Profile URL",
+    "linkedinUrl": "LinkedIn Profile URL",
+    "portfolioUrl": "Portfolio Website URL"
+  },
+  "resumeBuilder": {
+    "title": "ATS Resume Builder",
+    "subtitle": "Campus placements aur off-campus corporate hiring ke liye industry-standard ATS-friendly resume banayein.",
+    "templates": {
+      "modern": "Modern Clean",
+      "professional": "Executive Professional",
+      "minimal": "Minimal Academic"
+    },
+    "downloadPdf": "ATS PDF Download Karein",
+    "feedbackTitle": "AI ATS Feedback & Keyword Analysis",
+    "versions": "Saved Resume Versions"
+  },
+  "applications": {
+    "title": "Mere Applications",
+    "noApplications": "Aapne abhi tak kisi placement drive me apply nahi kiya hai.",
+    "appliedOn": "{{date}} ko apply kiya",
+    "status": {
+      "submitted": "Submitted",
+      "underReview": "Under Review",
+      "shortlisted": "Shortlisted",
+      "rejected": "Not Shortlisted",
+      "interviewScheduled": "Interview Scheduled",
+      "selected": "Selected / Offer Made",
+      "withdrawn": "Withdrawn"
+    }
+  }
+}

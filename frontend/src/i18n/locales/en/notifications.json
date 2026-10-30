@@ -1,0 +1,21 @@
+{
+  "title": "Notifications & Alerts",
+  "unreadCount": "{{count}} Unread",
+  "markAllAsRead": "Mark All as Read",
+  "emptyState": "You are all caught up! No unread notifications.",
+  "types": {
+    "applicationSubmitted": "Application Submitted",
+    "applicationStatusChanged": "Application Status Changed",
+    "interviewScheduled": "Interview Scheduled",
+    "drivePublished": "New Campus Drive Published",
+    "eventAnnouncement": "Career Event Announcement",
+    "systemAnnouncement": "System Notice"
+  },
+  "events": {
+    "title": "Career Events & Workshops",
+    "upcoming": "Upcoming Events",
+    "registered": "Registered",
+    "registerNow": "Register Free",
+    "cancelRegistration": "Cancel Registration"
+  }
+}

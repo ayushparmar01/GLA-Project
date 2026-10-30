@@ -1,0 +1,22 @@
+{
+  "title": "कैंपस प्लेसमेंट ड्राइव्स एवं अवसर",
+  "subtitle": "आपके कॉलेज कोहोर्ट के लिए उपलब्ध सत्यापित ऑन-कैंपस और पूल्ड ड्राइव्स।",
+  "searchPlaceholder": "जॉब रोल, कौशल, कंपनी द्वारा खोजें...",
+  "filterRole": "जॉब रोल",
+  "filterLocation": "स्थान",
+  "filterMode": "कार्य मोड",
+  "driveType": {
+    "onCampus": "ऑन-कैंपस ड्राइव",
+    "pooled": "क्षेत्रीय पूल्ड ड्राइव",
+    "offCampus": "प्रत्यक्ष नियोक्ता पोस्टिंग"
+  },
+  "package": "वेतन / CTC",
+  "locations": "कार्य स्थल",
+  "eligibilityStatus": {
+    "eligible": "आवेदन के लिए पात्र",
+    "notEligible": "पात्र नहीं",
+    "applied": "पहले से आवेदित"
+  },
+  "deadline": "{{date}} को समाप्त होगा",
+  "viewEligibility": "पात्रता स्कोरकार्ड देखें"
+}

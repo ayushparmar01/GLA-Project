@@ -1,0 +1,17 @@
+{
+  "title": "AI Career Assistant",
+  "subtitle": "Interviews, roadmaps, resume improvements, aur preparation par 24/7 personalized guidance.",
+  "inputPlaceholder": "Apna question poochein, e.g., '30 days me DSA kaise prepare karein?'...",
+  "send": "Send Karein",
+  "promptStartersTitle": "Suggested Topics:",
+  "starters": {
+    "dsa": "Campus placement drives ke liye DSA preparation kaise plan karein?",
+    "resume": "Resume projects ke liye high-impact bullet points kya hone chahiye?",
+    "interview": "Backend roles ke liye mock interview practice questions provide karein.",
+    "roadmap": "Full-stack developer banne ke liye 12-week roadmap suggest karein."
+  },
+  "disclaimer": "Advisory Notice: Career suggestions preparation assist karne ke liye hain aur koi employment contract ya job guarantee nahi hain.",
+  "fallbackBanner": "Note: Local deterministic guidance active hai. Demo mode me remote AI keys unconfigured hain.",
+  "roadmapsTitle": "Personalized Learning Roadmaps",
+  "curatedLibrary": "Curated Free Learning Resources"
+}

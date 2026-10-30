@@ -1,0 +1,34 @@
+{
+  "title": "WhatsApp कैरियर सहायक",
+  "subtitle": "अपने फ़ोन पर तत्काल प्लेसमेंट अलर्ट, आवेदन स्थिति परिवर्तन, साक्षात्कार अनुस्मारक और AI मार्गदर्शन प्राप्त करें।",
+  "connected": "संबद्ध (Connected)",
+  "notLinked": "लिंक नहीं है",
+  "linkAccount": "WhatsApp खाता लिंक करें",
+  "unlinkAccount": "खाता अनलिंक करें",
+  "confirmUnlink": "अनलिंक करने की पुष्टि करें",
+  "modalTitle": "WhatsApp कैरियर सहायक से जुड़ें",
+  "modalSubtitle": "अपने फ़ोन पर सीधे नौकरी संबंधी सूचनाएं और मार्गदर्शन प्राप्त करें।",
+  "phoneLabel": "आपका WhatsApp मोबाइल नंबर",
+  "generateCode": "सुरक्षित लिंक कोड उत्पन्न करें",
+  "timerCountdown": "{{minutes}}:{{seconds}} में समाप्त होगा",
+  "codeInstructions": "यह कोड हमारे आधिकारिक CareerBridge WhatsApp सहायक को भेजें:",
+  "copied": "क्लिपबोर्ड पर कॉपी किया गया!",
+  "preferencesTitle": "अधिसूचना प्राथमिकताएं",
+  "preferences": {
+    "jobAlerts": "तत्काल प्लेसमेंट ड्राइव अलर्ट",
+    "jobAlertsDesc": "जब नई कैंपस ड्राइव मेरी डिग्री और शाखा से मेल खाती हैं तो मुझे सूचित करें",
+    "applicationUpdates": "आवेदन स्थिति अपडेट",
+    "applicationUpdatesDesc": "जब रिक्रूटर्स मेरे आवेदन की समीक्षा या शॉर्टलिस्ट करते हैं तो वास्तविक समय अलर्ट",
+    "interviewAlerts": "साक्षात्कार समय सारिणी अनुस्मारक",
+    "interviewAlertsDesc": "ऑनलाइन या ऑफ़लाइन साक्षात्कार राउंड से 24 घंटे पहले अनुस्मारक",
+    "careerTips": "AI कैरियर मार्गदर्शन एवं टिप्स",
+    "careerTipsDesc": "साप्ताहिक तैयारी रोडमैप, मॉक प्रश्न और उद्योग के रुझान"
+  },
+  "simulator": {
+    "title": "CareerBridge सहायक",
+    "badge": "डेमो सिम्युलेटर",
+    "online": "ऑनलाइन",
+    "typePlaceholder": "कमांड या संदेश टाइप करें...",
+    "quickActions": "त्वरित कमांड्स:"
+  }
+}

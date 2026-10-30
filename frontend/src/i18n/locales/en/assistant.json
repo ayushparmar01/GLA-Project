@@ -1,0 +1,17 @@
+{
+  "title": "AI Career Assistant",
+  "subtitle": "24/7 personalized guidance on interviews, roadmaps, resume improvements, and placement preparation.",
+  "inputPlaceholder": "Ask a career question, e.g., 'How to prepare for DSA interviews in 30 days?'...",
+  "send": "Send Query",
+  "promptStartersTitle": "Suggested Topics:",
+  "starters": {
+    "dsa": "How should I structure my DSA preparation for campus drives?",
+    "resume": "What are the most impactful bullet points for my resume projects?",
+    "interview": "Can you give me mock interview practice questions for backend roles?",
+    "roadmap": "Suggest a 12-week roadmap to become a full-stack developer."
+  },
+  "disclaimer": "Advisory Notice: Career guidance suggestions are generated to assist your preparation and do not constitute an employment contract or guaranteed job offer.",
+  "fallbackBanner": "Note: Using local deterministic guidance provider. Remote AI credentials not active in demo mode.",
+  "roadmapsTitle": "Personalized Learning Roadmaps",
+  "curatedLibrary": "Curated Free Learning Resources"
+}

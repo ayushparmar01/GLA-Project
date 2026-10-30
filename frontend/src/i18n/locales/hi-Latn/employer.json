@@ -1,0 +1,35 @@
+{
+  "dashboard": {
+    "title": "Corporate Recruitment Desk",
+    "subtitle": "Unserved colleges se job-ready talent discover karein aur hire karein.",
+    "activeOpenings": "Active Openings",
+    "totalApplicants": "Total Applicants",
+    "interviewsScheduled": "Interviews Scheduled",
+    "partnerColleges": "Partner Colleges",
+    "postOpportunity": "Nayi Opening Post Karein",
+    "manageOpportunities": "Opportunities Manage Karein",
+    "reviewCandidates": "Candidate Applications Review Karein",
+    "scheduleInterviews": "Interviews Schedule Karein",
+    "collegeNetwork": "Institutional College Network"
+  },
+  "companyProfile": {
+    "title": "Company Profile & Verification",
+    "name": "Company Name",
+    "website": "Company Website",
+    "industry": "Industry Sector",
+    "companySize": "Company Size",
+    "description": "Organization ke baare me",
+    "verificationStatus": "Corporate Verification Status",
+    "trustPolicy": "Trust & Safety Policy: CareerBridge students ko fraud aur placement fees se protect karne ke liye recruiters ko verify karta hai."
+  },
+  "candidateDesk": {
+    "title": "Applicant Review Desk",
+    "statusFilter": "Status ke according filter karein",
+    "scoreFilter": "Minimum Readiness Score",
+    "anonymousNotice": "Student privacy protected hai. Contact details sirf shortlist hone par disclose honge.",
+    "viewResume": "ATS Resume Dekhein",
+    "scheduleInterview": "Interview Schedule Karein",
+    "shortlist": "Candidate Shortlist Karein",
+    "reject": "Unsuccessful Mark Karein"
+  }
+}

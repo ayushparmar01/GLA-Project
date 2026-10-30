@@ -1,0 +1,21 @@
+{
+  "title": "Notifications & Alerts",
+  "unreadCount": "{{count}} Unread",
+  "markAllAsRead": "Sabhi ko Read Mark Karein",
+  "emptyState": "Sab kuch up-to-date hai! Koi unread notification nahi hai.",
+  "types": {
+    "applicationSubmitted": "Application Submit ho gaya",
+    "applicationStatusChanged": "Application Status update hua",
+    "interviewScheduled": "Interview Schedule hua",
+    "drivePublished": "Nayi Campus Drive Publish hui",
+    "eventAnnouncement": "Career Event Announcement",
+    "systemAnnouncement": "System Notice"
+  },
+  "events": {
+    "title": "Career Events & Workshops",
+    "upcoming": "Upcoming Events",
+    "registered": "Registered",
+    "registerNow": "Free Register Karein",
+    "cancelRegistration": "Registration Cancel Karein"
+  }
+}

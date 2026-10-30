@@ -4,15 +4,26 @@ import { PlacementDriveData, OpportunityType, WorkMode, DriveStatus } from '../t
 export interface IPlacementDrive extends Document {
   title: string;
   description: string;
-  collegeId: Types.ObjectId;
+  collegeId?: Types.ObjectId;
+  employerId?: Types.ObjectId;
   createdBy: Types.ObjectId;
   organizationName: string;
   opportunityType: OpportunityType;
   workMode: WorkMode;
   location?: string;
   eligibleCourses?: string[];
+  eligibleBranches?: string[];
   eligibleGraduationYears?: number[];
   requiredSkills?: string[];
+  preferredSkills?: string[];
+  minimumQualification?: string;
+  minimumCGPA?: number;
+  maxBacklogsAllowed?: number;
+  minExperienceYears?: number;
+  salaryRange?: string;
+  internshipDuration?: string;
+  numberOfOpenings?: number;
+  recruitmentProcess?: string[];
   applicationDeadline: Date;
   driveDate?: Date;
   status: DriveStatus;
@@ -35,12 +46,16 @@ const PlacementDriveSchema = new Schema<IPlacementDrive>(
       type: String,
       required: [true, 'Drive description is required'],
       trim: true,
-      maxlength: [2000, 'Description cannot exceed 2000 characters'],
+      maxlength: [3000, 'Description cannot exceed 3000 characters'],
     },
     collegeId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: [true, 'Owning college ID is required'],
+      index: true,
+    },
+    employerId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
       index: true,
     },
     createdBy: {
@@ -84,6 +99,13 @@ const PlacementDriveSchema = new Schema<IPlacementDrive>(
         maxlength: [100, 'Course name cannot exceed 100 characters'],
       },
     ],
+    eligibleBranches: [
+      {
+        type: String,
+        trim: true,
+        maxlength: [100, 'Branch name cannot exceed 100 characters'],
+      },
+    ],
     eligibleGraduationYears: [
       {
         type: Number,
@@ -98,6 +120,55 @@ const PlacementDriveSchema = new Schema<IPlacementDrive>(
         maxlength: [50, 'Skill name cannot exceed 50 characters'],
       },
     ],
+    preferredSkills: [
+      {
+        type: String,
+        trim: true,
+        maxlength: [50, 'Skill name cannot exceed 50 characters'],
+      },
+    ],
+    minimumQualification: {
+      type: String,
+      trim: true,
+      maxlength: [100, 'Minimum qualification cannot exceed 100 characters'],
+    },
+    minimumCGPA: {
+      type: Number,
+      min: [0, 'CGPA cannot be negative'],
+      max: [10, 'CGPA cannot exceed 10'],
+    },
+    maxBacklogsAllowed: {
+      type: Number,
+      min: [0, 'Backlogs cannot be negative'],
+      max: [20, 'Max backlogs cannot exceed 20'],
+    },
+    minExperienceYears: {
+      type: Number,
+      min: [0, 'Experience cannot be negative'],
+      max: [30, 'Experience cannot exceed 30 years'],
+      default: 0,
+    },
+    salaryRange: {
+      type: String,
+      trim: true,
+      maxlength: [80, 'Salary range cannot exceed 80 characters'],
+    },
+    internshipDuration: {
+      type: String,
+      trim: true,
+      maxlength: [80, 'Internship duration cannot exceed 80 characters'],
+    },
+    numberOfOpenings: {
+      type: Number,
+      min: [1, 'Number of openings must be at least 1'],
+    },
+    recruitmentProcess: [
+      {
+        type: String,
+        trim: true,
+        maxlength: [100, 'Process round description cannot exceed 100 characters'],
+      },
+    ],
     applicationDeadline: {
       type: Date,
       required: [true, 'Application deadline is required'],
@@ -109,8 +180,8 @@ const PlacementDriveSchema = new Schema<IPlacementDrive>(
     status: {
       type: String,
       enum: {
-        values: ['DRAFT', 'PUBLISHED', 'CLOSED', 'CANCELLED'],
-        message: 'Status must be DRAFT, PUBLISHED, CLOSED, or CANCELLED',
+        values: ['DRAFT', 'PENDING_APPROVAL', 'PUBLISHED', 'CLOSED', 'CANCELLED'],
+        message: 'Status must be DRAFT, PENDING_APPROVAL, PUBLISHED, CLOSED, or CANCELLED',
       },
       default: 'DRAFT',
       index: true,
@@ -127,20 +198,39 @@ const PlacementDriveSchema = new Schema<IPlacementDrive>(
   }
 );
 
-PlacementDriveSchema.methods.toSafeObject = function (this: IPlacementDrive, applicationCount?: number): PlacementDriveData {
+// Preserved & extended indexes
+PlacementDriveSchema.index({ employerId: 1, status: 1 });
+PlacementDriveSchema.index({ collegeId: 1, status: 1 });
+PlacementDriveSchema.index({ applicationDeadline: 1, status: 1 });
+
+PlacementDriveSchema.methods.toSafeObject = function (
+  this: IPlacementDrive,
+  applicationCount?: number
+): PlacementDriveData {
   return {
     id: (this._id as Types.ObjectId).toString(),
     title: this.title,
     description: this.description,
-    collegeId: this.collegeId.toString(),
+    collegeId: this.collegeId ? this.collegeId.toString() : undefined,
+    employerId: this.employerId ? this.employerId.toString() : undefined,
     createdBy: this.createdBy.toString(),
     organizationName: this.organizationName,
     opportunityType: this.opportunityType,
     workMode: this.workMode,
     location: this.location,
     eligibleCourses: this.eligibleCourses || [],
+    eligibleBranches: this.eligibleBranches || [],
     eligibleGraduationYears: this.eligibleGraduationYears || [],
     requiredSkills: this.requiredSkills || [],
+    preferredSkills: this.preferredSkills || [],
+    minimumQualification: this.minimumQualification,
+    minimumCGPA: this.minimumCGPA,
+    maxBacklogsAllowed: this.maxBacklogsAllowed,
+    minExperienceYears: this.minExperienceYears,
+    salaryRange: this.salaryRange,
+    internshipDuration: this.internshipDuration,
+    numberOfOpenings: this.numberOfOpenings,
+    recruitmentProcess: this.recruitmentProcess || [],
     applicationDeadline: this.applicationDeadline ? this.applicationDeadline.toISOString() : '',
     driveDate: this.driveDate ? this.driveDate.toISOString() : undefined,
     status: this.status,
