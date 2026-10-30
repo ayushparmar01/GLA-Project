@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { User } from '../models/user.model.js';
 import { getDbStatus } from '../config/db.js';
 
-export const SUPPORTED_LANGUAGES = ['en', 'hi', 'hi-Latn'] as const;
+export const SUPPORTED_LANGUAGES = ['en', 'hi', 'hi-Latn', 'ta', 'kn'] as const;
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 
 export const updateMe = async (req: Request, res: Response): Promise<void> => {

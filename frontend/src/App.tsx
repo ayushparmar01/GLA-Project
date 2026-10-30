@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useCallback, Suspense, lazy } from 'react';
+import React, { useEffect, useState, Suspense, lazy } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { I18nProvider } from './i18n/I18nContext';
 import { Navbar, NavigationTarget } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { SystemHealthBanner } from './components/SystemHealthBanner';
 import { ProblemStatement } from './components/landing/ProblemStatement';
 import { PlatformOverview } from './components/landing/PlatformOverview';
 import { CoreFeatures } from './components/landing/CoreFeatures';
@@ -18,8 +17,7 @@ import { DashboardView } from './components/DashboardView';
 import { UnauthorizedView } from './components/UnauthorizedView';
 import { OfflineIndicator } from './components/pwa/OfflineIndicator';
 import { PwaInstallBanner } from './components/pwa/PwaInstallBanner';
-import { fetchSystemHealth } from './services/api';
-import { SystemHealthResponse, Role } from './types';
+import { Role } from './types';
 import { Loader2 } from 'lucide-react';
 
 // Code-split heavy views for optimal low-bandwidth initial load
@@ -63,19 +61,6 @@ const AppContent: React.FC = () => {
   const { user } = useAuth();
   const [activeView, setActiveView] = useState<ViewMode>('landing');
   const [selectedDriveIdForApplicants, setSelectedDriveIdForApplicants] = useState<string | null>(null);
-  const [health, setHealth] = useState<SystemHealthResponse | null>(null);
-  const [loadingHealth, setLoadingHealth] = useState<boolean>(true);
-
-  const checkHealth = useCallback(async () => {
-    setLoadingHealth(true);
-    const result = await fetchSystemHealth();
-    setHealth(result);
-    setLoadingHealth(false);
-  }, []);
-
-  useEffect(() => {
-    checkHealth();
-  }, [checkHealth]);
 
   // When a user successfully authenticates, transition to the Dashboard
   useEffect(() => {
@@ -95,8 +80,6 @@ const AppContent: React.FC = () => {
 
       {/* Navigation */}
       <Navbar
-        health={health}
-        loadingHealth={loadingHealth}
         activeView={activeView}
         onNavigate={(view: NavigationTarget) => setActiveView(view as ViewMode)}
       />
@@ -116,7 +99,6 @@ const AppContent: React.FC = () => {
                 }}
                 onJoin={() => setActiveView('register')}
               />
-              <SystemHealthBanner health={health} loading={loadingHealth} onRefresh={checkHealth} />
               <ProblemStatement />
               <PlatformOverview onSelectRole={handleRoleCardSelect} />
               <CoreFeatures />

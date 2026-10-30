@@ -1205,6 +1205,9 @@ export interface RecommendationExplanation {
   assessmentCompatibility: string;
   preferenceCompatibility: string;
   recommendedActions: string[];
+  checklist?: string[];
+  whyItMatches?: string[];
+  whyItDoesNotMatch?: string[];
 }
 
 export interface RecommendationScoreBreakdown {

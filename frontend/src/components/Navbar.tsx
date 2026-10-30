@@ -34,13 +34,13 @@ export type NavigationTarget =
   | 'admin-control-centre';
 
 interface NavbarProps {
-  health: SystemHealthResponse | null;
-  loadingHealth: boolean;
+  health?: SystemHealthResponse | null;
+  loadingHealth?: boolean;
   activeView: string;
   onNavigate: (view: NavigationTarget) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ health, loadingHealth, activeView, onNavigate }) => {
+export const Navbar: React.FC<NavbarProps> = ({ activeView, onNavigate }) => {
   const { user, token, logout } = useAuth();
   const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -83,10 +83,10 @@ export const Navbar: React.FC<NavbarProps> = ({ health, loadingHealth, activeVie
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <span className="bg-emerald-500/20 text-emerald-300 font-semibold px-2 py-0.5 rounded text-[11px] border border-emerald-400/30">
-              MISSION BHARAT HACKATHON
+              MISSION BHARAT 
             </span>
             <span className="hidden sm:inline text-slate-300">
-              Problem Statement #07 — Career Access for Colleges with No Placement Cell
+              Career Access for Colleges with No Placement Cell
             </span>
           </div>
 

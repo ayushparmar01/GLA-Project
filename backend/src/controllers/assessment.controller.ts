@@ -497,9 +497,11 @@ export class AssessmentController {
         }
 
         if (attempt.status === 'SUBMITTED') {
-          res.status(400).json({
-            success: false,
-            error: { code: 'ATTEMPT_ALREADY_SUBMITTED', message: 'This attempt has already been submitted and scored' },
+          // Idempotent retry response for slow or interrupted networks (50 kbps resilience)
+          res.status(200).json({
+            success: true,
+            data: attempt.toSafeObject(),
+            message: 'Attempt was already submitted and verified (Idempotent response).',
           });
           return;
         }
@@ -562,9 +564,11 @@ export class AssessmentController {
       }
 
       if (inMem.status === 'SUBMITTED') {
-        res.status(400).json({
-          success: false,
-          error: { code: 'ATTEMPT_ALREADY_SUBMITTED', message: 'This attempt has already been submitted and scored' },
+        // Idempotent retry response for slow or interrupted networks (50 kbps resilience)
+        res.status(200).json({
+          success: true,
+          data: inMem,
+          message: 'Attempt was already submitted and verified (Idempotent response).',
         });
         return;
       }

@@ -85,6 +85,35 @@ export class CareerReadinessController {
       }
 
       const report = await CareerReadinessService.calculateReadiness(user);
+
+      // Low-Bandwidth (50 kbps) Compact Response Optimization (< 1.5 KB payload)
+      if (req.query.compact === 'true') {
+        const compactReport = {
+          overallScore: report.overallScore,
+          statusBand: report.statusBand,
+          factors: (report.factors || []).map((f) => ({
+            name: f.name,
+            category: f.category,
+            weight: f.weight,
+            score: f.score,
+            maxScore: f.maxScore,
+            status: f.status,
+            details: f.details.slice(0, 100),
+          })),
+          missingFactors: (report.missingFactors || []).slice(0, 3),
+          improvementSuggestions: (report.improvementSuggestions || []).slice(0, 3),
+          assessmentVerifiedSkillsCount: report.assessmentVerifiedSkillsCount || 0,
+          disclaimer: report.disclaimer,
+          calculatedAt: report.calculatedAt,
+          isCompact: true,
+        };
+        res.status(200).json({
+          success: true,
+          data: compactReport as unknown as CareerReadinessReport,
+        });
+        return;
+      }
+
       const response: ApiResponse<CareerReadinessReport> = {
         success: true,
         data: report,

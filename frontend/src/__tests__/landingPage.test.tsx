@@ -12,17 +12,45 @@ import { FinalCta } from '../components/landing/FinalCta';
 import { Footer } from '../components/Footer';
 
 describe('Professional Landing Page Redesign Test Suite', () => {
-  it('Hero should render official Mission Bharat headline and CTAs', () => {
+  it('Hero should render official Mission Bharat headline, CTAs, and professional photography composition', () => {
     const handleJoin = vi.fn();
     render(<Hero onJoin={handleJoin} />);
 
     expect(screen.getByText(/Bridging the Gap Between/i)).toBeInTheDocument();
     expect(screen.getByText(/Talent and Opportunity./i)).toBeInTheDocument();
     expect(screen.getByText(/MISSION BHARAT HACKATHON/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /CareerBridge connects students, colleges and employers through a unified career development/i
+      )
+    ).toBeInTheDocument();
 
     const joinBtn = screen.getByRole('button', { name: /Join CareerBridge/i });
     fireEvent.click(joinBtn);
     expect(handleJoin).toHaveBeenCalledTimes(1);
+
+    // Verify professional photography visual composition is rendered
+    expect(
+      screen.getByAltText(/University students collaborating around laptops/i)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByAltText(/Professional recruitment interview and career discussion/i)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByAltText(/Students engaged in collaborative software development/i)
+    ).toBeInTheDocument();
+
+    // Verify editorial tags
+    expect(screen.getByText(/Collaborative Campus Learning/i)).toBeInTheDocument();
+    expect(screen.getByText(/Industry Recruitment/i)).toBeInTheDocument();
+    expect(screen.getByText(/Skill Development/i)).toBeInTheDocument();
+
+    // Verify old fictional candidate dashboard preview is completely removed
+    expect(screen.queryByText(/Aarav Sharma/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/ZenithPay/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Readiness: 88%/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Selected for Technical Offer/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/DSA Assessment/i)).not.toBeInTheDocument();
   });
 
   it('ProblemStatement should explain the core rural placement divide', () => {
@@ -100,5 +128,10 @@ describe('Professional Landing Page Redesign Test Suite', () => {
     expect(screen.getByText(/Problem Statement #07 — Career Access for Colleges with No Placement Cell/i)).toBeInTheDocument();
     expect(screen.queryByText(/Phase 1: Project Foundation/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Empowering 35,000\+ Indian colleges/i)).not.toBeInTheDocument();
+  });
+
+  it('Landing page should not contain System Health & API Monitor diagnostic UI', () => {
+    expect(document.querySelector('#diagnostics')).toBeNull();
+    expect(screen.queryByText(/System Health & API Monitor/i)).not.toBeInTheDocument();
   });
 });

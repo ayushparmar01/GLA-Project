@@ -47,17 +47,19 @@ describe('CareerBridge App Initial Render', () => {
     render(<App />);
 
     expect(screen.getByText(/For Students/i)).toBeInTheDocument();
-    expect(screen.getByText(/For College Principals & Faculty/i)).toBeInTheDocument();
-    expect(screen.getByText(/For Industry Recruiters/i)).toBeInTheDocument();
+    expect(screen.getByText(/For Colleges/i)).toBeInTheDocument();
+    expect(screen.getByText(/For Employers/i)).toBeInTheDocument();
+    expect(screen.getByText(/For Alumni Mentors/i)).toBeInTheDocument();
   });
 
-  it('renders the system health diagnostic section', async () => {
+  it('verifies system health & API monitor UI is completely removed from user-facing frontend', () => {
     render(<App />);
 
-    expect(screen.getByText(/System Health & API Monitor/i)).toBeInTheDocument();
-
-    await waitFor(() => {
-      expect(screen.getByRole('button', { name: /Recheck \/api\/health/i })).toBeInTheDocument();
-    });
+    expect(screen.queryByText(/System Health & API Monitor/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/REAL-TIME PHASE 1 VERIFICATION/i)).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /Recheck \/api\/health/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /Inspect JSON/i })).not.toBeInTheDocument();
+    expect(screen.queryByText(/Express API Server/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/ICAN Sandbox Adapter/i)).not.toBeInTheDocument();
   });
 });

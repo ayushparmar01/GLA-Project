@@ -48,6 +48,22 @@ export const AssessmentAttemptView: React.FC<AssessmentAttemptViewProps> = ({
   const [timeLeft, setTimeLeft] = useState<number>(remainingInitial);
   const timerRef = useRef<any>(null);
 
+  // Restore draft answers from localStorage (handles network drops / 50 kbps resilience)
+  useEffect(() => {
+    const localDraftKey = `careerbridge_assessment_draft_${attempt.id}`;
+    const localDraft = localStorage.getItem(localDraftKey);
+    if (localDraft) {
+      try {
+        const parsed = JSON.parse(localDraft);
+        if (parsed && typeof parsed === 'object') {
+          setAnswers((prev) => ({ ...prev, ...parsed }));
+        }
+      } catch {
+        // Ignore parse error
+      }
+    }
+  }, [attempt.id]);
+
   // Auto-submit when time expires
   useEffect(() => {
     timerRef.current = setInterval(() => {
@@ -88,6 +104,9 @@ export const AssessmentAttemptView: React.FC<AssessmentAttemptViewProps> = ({
     const nextAnswers = { ...answers, [questionId]: updated };
     setAnswers(nextAnswers);
 
+    // Save to local storage immediately so progress is never lost even if connection drops
+    localStorage.setItem(`careerbridge_assessment_draft_${attempt.id}`, JSON.stringify(nextAnswers));
+
     // Debounced autosave
     triggerAutosave(nextAnswers);
   };
@@ -98,27 +117,42 @@ export const AssessmentAttemptView: React.FC<AssessmentAttemptViewProps> = ({
     try {
       await saveAssessmentAnswersApi(assessment.id, attempt.id, newAnswers, token);
     } catch {
-      // Ignore background save failure silently
+      // Ignore background save failure silently; answers remain safely stored in localStorage
     } finally {
       setSaving(false);
     }
   };
 
   const executeSubmission = async () => {
+    if (submitting) return; // Prevent duplicate click submission
     setSubmitting(true);
     setError(null);
-    try {
-      const res = await submitAssessmentAttemptApi(assessment.id, attempt.id, answers, token);
-      if (res.success && res.data) {
-        onFinishAttempt(res.data);
-      } else {
-        setError(res.error?.message || 'Failed to submit assessment');
-        setSubmitting(false);
+
+    // Exponential backoff retry loop (handles spotty 50 kbps connections)
+    let retries = 2;
+    let delay = 1000;
+    while (retries >= 0) {
+      try {
+        const res = await submitAssessmentAttemptApi(assessment.id, attempt.id, answers, token);
+        if (res.success && res.data) {
+          localStorage.removeItem(`careerbridge_assessment_draft_${attempt.id}`);
+          onFinishAttempt(res.data);
+          return;
+        } else if (retries === 0) {
+          setError(res.error?.message || 'Failed to submit assessment');
+        }
+      } catch (err) {
+        if (retries === 0) {
+          setError(err instanceof Error ? err.message : 'Network error submitting attempt. Retrying...');
+        }
       }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error submitting attempt');
-      setSubmitting(false);
+      retries--;
+      if (retries >= 0) {
+        await new Promise((resolve) => setTimeout(resolve, delay));
+        delay *= 2;
+      }
     }
+    setSubmitting(false);
   };
 
   const formatTimer = (seconds: number) => {
@@ -138,13 +172,16 @@ export const AssessmentAttemptView: React.FC<AssessmentAttemptViewProps> = ({
       {/* Top Test Header & Timer */}
       <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sticky top-4 z-20">
         <div>
-          <div className="flex items-center gap-2 mb-1">
+          <div className="flex flex-wrap items-center gap-2 mb-1">
             <span className="text-xs font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-700">
               {assessment.category}
             </span>
             <span className="text-xs text-slate-400">•</span>
             <span className="text-xs text-slate-500 font-medium">
               Question {currentIndex + 1} of {questions.length}
+            </span>
+            <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
+              50 kbps Resilient (Progress Saved Locally)
             </span>
             {saving && (
               <span className="text-[11px] text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded flex items-center gap-1">

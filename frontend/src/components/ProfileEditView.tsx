@@ -3,9 +3,10 @@ import { useAuth } from '../context/AuthContext';
 import { useTranslation } from '../i18n/I18nContext';
 import { LanguageSelector } from './common/LanguageSelector';
 import { SupportedLanguage } from '../i18n/types';
-import { User, Lock, Mail, Globe, Phone, Building, ArrowLeft, Save, Plus, X, AlertCircle, CheckCircle } from 'lucide-react';
+import { User, Lock, Mail, Globe, Phone, Building, ArrowLeft, Save, Plus, X, AlertCircle, CheckCircle, Mic, Sparkles } from 'lucide-react';
 import { WhatsAppIntegrationCard } from './whatsapp/WhatsAppIntegrationCard';
 import { WhatsAppAssistantPreview } from './whatsapp/WhatsAppAssistantPreview';
+import { VoiceProfileModal } from './student/VoiceProfileModal';
 
 interface ProfileEditViewProps {
   onBack: () => void;
@@ -15,6 +16,7 @@ export const ProfileEditView: React.FC<ProfileEditViewProps> = ({ onBack }) => {
   const { user, token, updateProfile } = useAuth();
   const { t, changeLanguage, supportedLanguages } = useTranslation();
   const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
+  const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
 
   // Base fields
   const [fullName, setFullName] = useState(user?.fullName || '');
@@ -189,6 +191,46 @@ export const ProfileEditView: React.FC<ProfileEditViewProps> = ({ onBack }) => {
     }
   };
 
+  const handleApplyVoiceProfile = async (data: {
+    fullName?: string;
+    course?: string;
+    educationLevel?: string;
+    skills: string[];
+    careerInterests: string[];
+    preferredWorkLocation: string[];
+    preferredJobRoles?: string[];
+  }) => {
+    if (data.fullName) setFullName(data.fullName);
+    if (data.course) setCourse(data.course);
+    if (data.educationLevel) setEducationLevel(data.educationLevel);
+    if (data.skills && data.skills.length > 0) setSkills(data.skills);
+    if (data.careerInterests && data.careerInterests.length > 0) setCareerInterests(data.careerInterests);
+    if (data.preferredWorkLocation && data.preferredWorkLocation.length > 0) setPreferredWorkLocation(data.preferredWorkLocation);
+
+    const payload: Record<string, unknown> = {
+      fullName: (data.fullName || fullName).trim(),
+      preferredLanguage,
+      phoneNumber: phoneNumber.trim() || undefined,
+      studentProfile: {
+        collegeName: collegeName.trim(),
+        course: (data.course || course).trim(),
+        educationLevel: data.educationLevel || educationLevel,
+        graduationYear: typeof graduationYear === 'number' ? graduationYear : undefined,
+        skills: data.skills && data.skills.length > 0 ? data.skills : skills,
+        careerInterests: data.careerInterests && data.careerInterests.length > 0 ? data.careerInterests : careerInterests,
+        preferredWorkLocation: data.preferredWorkLocation && data.preferredWorkLocation.length > 0 ? data.preferredWorkLocation : preferredWorkLocation,
+      },
+    };
+
+    const res = await updateProfile(payload);
+    if (res.success) {
+      setSuccessMsg('Profile updated via Voice Recognition successfully!');
+      setTimeout(() => setSuccessMsg(null), 4000);
+    } else {
+      setErrorMsg(res.error || 'Failed to update profile from voice extraction.');
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
       <div className="mb-6 flex items-center justify-between">
@@ -226,6 +268,36 @@ export const ProfileEditView: React.FC<ProfileEditViewProps> = ({ onBack }) => {
           <div className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 flex items-center space-x-3 text-rose-800 text-sm">
             <AlertCircle className="w-5 h-5 text-rose-600 shrink-0" />
             <span>{errorMsg}</span>
+          </div>
+        )}
+
+        {/* Feature 1: Multilingual Voice Profile Creation Banner (Tamil & Kannada) */}
+        {user.role === 'STUDENT' && (
+          <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50 to-indigo-50 border border-emerald-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xs">
+            <div className="flex items-center space-x-3.5">
+              <div className="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+                <Mic className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center space-x-2">
+                  <h4 className="font-bold text-sm text-slate-900">Voice-Assisted Profile Creation</h4>
+                  <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
+                    தமிழ் &bull; ಕನ್ನಡ &bull; English
+                  </span>
+                </div>
+                <p className="text-xs text-slate-600 mt-0.5">
+                  Complete your profile through natural speech in under 5 minutes in Tamil or Kannada.
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsVoiceModalOpen(true)}
+              className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-sm transition whitespace-nowrap cursor-pointer hover:shadow-md"
+            >
+              <Mic className="w-3.5 h-3.5" />
+              <span>Start Voice Profile (தமிழ்/ಕನ್ನಡ)</span>
+            </button>
           </div>
         )}
 
@@ -696,6 +768,14 @@ export const ProfileEditView: React.FC<ProfileEditViewProps> = ({ onBack }) => {
       {isSimulatorOpen && (
         <WhatsAppAssistantPreview onClose={() => setIsSimulatorOpen(false)} />
       )}
+
+      {/* Multilingual Voice Profile Creation Modal (Feature 1) */}
+      <VoiceProfileModal
+        isOpen={isVoiceModalOpen}
+        onClose={() => setIsVoiceModalOpen(false)}
+        onApplyProfile={handleApplyVoiceProfile}
+        token={token}
+      />
     </div>
   );
 };

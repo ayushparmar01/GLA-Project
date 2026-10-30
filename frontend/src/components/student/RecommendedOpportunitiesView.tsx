@@ -430,6 +430,47 @@ export const RecommendedOpportunitiesView: React.FC<RecommendedOpportunitiesView
                     )}
                   </div>
 
+                  {/* Feature 3: Transparent "Why this job matches you" Explainable Matching Checklist */}
+                  <div className="mt-3.5 p-3.5 rounded-xl bg-slate-50/90 border border-slate-200 text-xs space-y-1.5">
+                    <div className="font-bold text-slate-800 flex items-center gap-1.5">
+                      <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                      <span>Why this job matches you:</span>
+                    </div>
+                    <ul className="space-y-1 pl-1">
+                      {(rec.explanation.checklist && rec.explanation.checklist.length > 0
+                        ? rec.explanation.checklist
+                        : [
+                            drive?.minimumQualification
+                              ? `✓ ${drive.minimumQualification} matches the requirement.`
+                              : `✓ General qualification matches the requirement.`,
+                            drive?.location
+                              ? `✓ Job location (${drive.location}) matches preferred geographic range.`
+                              : `- Distance could not be verified (Exact coordinates not provided).`,
+                            drive?.salaryRange
+                              ? `✓ Employer has listed a stipend / salary (${drive.salaryRange}).`
+                              : `- Stipend / salary details not specified by employer.`,
+                            rec.explanation.matchingSkills && rec.explanation.matchingSkills.length > 0
+                              ? `✓ Your ${rec.explanation.matchingSkills.slice(0, 2).join(', ')} skill(s) match the job description.`
+                              : `- Focus on core skill preparation.`,
+                          ]
+                      ).map((point, pIdx) => {
+                        const isPositive = point.startsWith('✓');
+                        const isNegative = point.startsWith('✗');
+                        return (
+                          <li
+                            key={pIdx}
+                            className={`flex items-start gap-1.5 leading-relaxed ${
+                              isPositive ? 'text-emerald-800 font-medium' : isNegative ? 'text-rose-700 font-medium' : 'text-slate-600'
+                            }`}
+                          >
+                            <span className="font-bold shrink-0">{point.slice(0, 1)}</span>
+                            <span>{point.slice(2)}</span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+
                   {/* Card Actions & Toggle */}
                   <div className="mt-4 pt-3 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
                     <button

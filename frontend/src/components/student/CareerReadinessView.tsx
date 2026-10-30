@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { CareerReadinessReport } from '../../types';
 import { fetchCareerReadinessReportApi } from '../../services/api';
+import { Wifi, WifiOff, RefreshCw, Zap, CheckCircle2, AlertTriangle, ShieldCheck } from 'lucide-react';
+
+const READINESS_CACHE_KEY = 'careerbridge_readiness_cache';
 
 interface CareerReadinessViewProps {
   token?: string | null;
@@ -14,30 +17,64 @@ export const CareerReadinessView: React.FC<CareerReadinessViewProps> = ({
   const [report, setReport] = useState<CareerReadinessReport | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isCached, setIsCached] = useState(false);
+  const [lowBandwidthMode, setLowBandwidthMode] = useState<boolean>(() => {
+    // Check connection API if available (e.g. 2g or slow connection)
+    const conn = (navigator as any).connection;
+    return conn && (conn.effectiveType === '2g' || conn.downlink <= 0.1);
+  });
 
   useEffect(() => {
+    // Check offline cache first for instant 50 kbps response
+    const cached = localStorage.getItem(READINESS_CACHE_KEY);
+    if (cached) {
+      try {
+        const parsed = JSON.parse(cached);
+        setReport(parsed);
+        setIsCached(true);
+        setLoading(false);
+      } catch {
+        // Ignore cache parse error
+      }
+    }
     loadReport();
-  }, [token]);
+  }, [token, lowBandwidthMode]);
 
   const loadReport = async () => {
     if (!token) {
       setLoading(false);
       return;
     }
-    setLoading(true);
+    if (!report) setLoading(true);
     setError(null);
-    try {
-      const res = await fetchCareerReadinessReportApi(token);
-      if (res.success && res.data) {
-        setReport(res.data);
-      } else {
-        setError(res.error?.message || 'Failed to fetch career readiness report');
+
+    // Exponential backoff retry loop (handles spotty 50 kbps connection)
+    let retries = 2;
+    let delay = 1000;
+    while (retries >= 0) {
+      try {
+        const res = await fetchCareerReadinessReportApi(token, lowBandwidthMode);
+        if (res.success && res.data) {
+          setReport(res.data);
+          setIsCached(false);
+          localStorage.setItem(READINESS_CACHE_KEY, JSON.stringify(res.data));
+          setLoading(false);
+          return;
+        } else if (retries === 0) {
+          setError(res.error?.message || 'Failed to fetch career readiness report');
+        }
+      } catch (err) {
+        if (retries === 0) {
+          setError(err instanceof Error ? err.message : 'Error loading readiness report over slow connection');
+        }
       }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error loading readiness report');
-    } finally {
-      setLoading(false);
+      retries--;
+      if (retries >= 0) {
+        await new Promise((resolve) => setTimeout(resolve, delay));
+        delay *= 2;
+      }
     }
+    setLoading(false);
   };
 
   const getBandBadge = (band: string) => {
@@ -85,6 +122,57 @@ export const CareerReadinessView: React.FC<CareerReadinessViewProps> = ({
 
   return (
     <div className="space-y-6">
+      {/* 50 kbps Low-Bandwidth Resilience Bar (Feature 2) */}
+      <div className="p-3.5 rounded-xl bg-white border border-slate-200 shadow-2xs flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div className="flex items-center space-x-2">
+          {lowBandwidthMode ? (
+            <span className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 font-semibold">
+              <Zap className="w-3.5 h-3.5 text-amber-600" />
+              <span>50 kbps Low-Bandwidth Mode Active</span>
+            </span>
+          ) : (
+            <span className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold">
+              <Wifi className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Full Bandwidth Connection</span>
+            </span>
+          )}
+
+          {isCached ? (
+            <span className="text-slate-500 font-medium hidden sm:inline">
+              &bull; Displaying cached result (0 KB network overhead)
+            </span>
+          ) : (
+            <span className="text-emerald-700 font-medium hidden sm:inline">
+              &bull; Live verified payload ({lowBandwidthMode ? '< 1 KB compact' : 'Standard'})
+            </span>
+          )}
+        </div>
+
+        <div className="flex items-center space-x-2 ml-auto">
+          <button
+            type="button"
+            onClick={() => setLowBandwidthMode(!lowBandwidthMode)}
+            className={`px-3 py-1.5 rounded-lg border font-semibold transition ${
+              lowBandwidthMode
+                ? 'bg-amber-100 text-amber-900 border-amber-300'
+                : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+            }`}
+            title="Toggle 50 kbps lightweight payload optimization"
+          >
+            {lowBandwidthMode ? 'Disable 50 kbps Mode' : 'Simulate 50 kbps Mode'}
+          </button>
+          <button
+            type="button"
+            onClick={() => loadReport()}
+            disabled={loading}
+            className="inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-2xs transition disabled:opacity-50"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+            <span>Refresh</span>
+          </button>
+        </div>
+      </div>
+
       {/* Top Hero Banner with Score Gauge */}
       <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 rounded-2xl p-6 md:p-8 text-white shadow-lg border border-slate-800">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
@@ -95,7 +183,7 @@ export const CareerReadinessView: React.FC<CareerReadinessViewProps> = ({
               </span>
               <span className="text-xs text-slate-400">•</span>
               <span className="text-xs text-indigo-300 font-medium">
-                {report.assessmentVerifiedSkillsCount} Skills Verified
+                {report.assessmentVerifiedSkillsCount || 0} Skills Verified
               </span>
             </div>
             <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
@@ -110,14 +198,14 @@ export const CareerReadinessView: React.FC<CareerReadinessViewProps> = ({
           {/* Large Readiness Score Widget */}
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 text-center min-w-[200px] shrink-0 space-y-2">
             <span className="block text-5xl font-black tracking-tight text-white">
-              {report.overallScore}%
+              {report.overallScore ?? 0}%
             </span>
             <span
               className={`inline-block px-3 py-1 rounded-full text-xs font-extrabold tracking-wider uppercase ${getBandBadge(
-                report.statusBand
+                report.statusBand || 'EARLY_STAGE'
               )}`}
             >
-              {report.statusBand.replace(/_/g, ' ')}
+              {(report.statusBand || 'EARLY_STAGE').replace(/_/g, ' ')}
             </span>
             <span className="text-[11px] text-slate-300 block">
               Scale: 0 (Early) to 100 (Job Ready)
@@ -138,7 +226,7 @@ export const CareerReadinessView: React.FC<CareerReadinessViewProps> = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {report.factors.map((f, idx) => {
+          {(report.factors || []).map((f, idx) => {
             const pct = Math.round((f.score / f.maxScore) * 100);
             return (
               <div
@@ -195,7 +283,7 @@ export const CareerReadinessView: React.FC<CareerReadinessViewProps> = ({
             <h3 className="font-bold text-slate-900 text-base">Identified Score Gaps</h3>
           </div>
 
-          {report.missingFactors.length === 0 ? (
+          {(!report.missingFactors || report.missingFactors.length === 0) ? (
             <p className="text-xs text-emerald-700 bg-emerald-50 p-3 rounded-xl font-medium">
               Excellent! No score gaps detected. All 6 pillars are satisfied.
             </p>
@@ -223,7 +311,7 @@ export const CareerReadinessView: React.FC<CareerReadinessViewProps> = ({
             <h3 className="font-bold text-slate-900 text-base">Actionable Recommendations</h3>
           </div>
 
-          {report.improvementSuggestions.length === 0 ? (
+          {(!report.improvementSuggestions || report.improvementSuggestions.length === 0) ? (
             <p className="text-xs text-slate-500">Your profile is currently maximized.</p>
           ) : (
             <div className="space-y-2.5">

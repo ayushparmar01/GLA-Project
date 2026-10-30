@@ -32,7 +32,9 @@ import {
   Send,
   Layers,
   GraduationCap,
+  Zap,
 } from 'lucide-react';
+import { QuickJobPostModal } from './QuickJobPostModal';
 
 interface OpportunityManagementViewProps {
   onSelectDriveApplicants?: (driveId: string) => void;
@@ -54,6 +56,7 @@ export const OpportunityManagementView: React.FC<OpportunityManagementViewProps>
 
   // Modal State
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
+  const [showQuickModal, setShowQuickModal] = useState<boolean>(false);
   const [creating, setCreating] = useState<boolean>(false);
   const [formError, setFormError] = useState<string | null>(null);
 
@@ -251,13 +254,23 @@ export const OpportunityManagementView: React.FC<OpportunityManagementViewProps>
           </p>
         </div>
 
-        <button
-          onClick={() => setShowCreateModal(true)}
-          className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-semibold transition-all shadow-lg shadow-indigo-500/25 flex items-center gap-2 self-start sm:self-auto"
-        >
-          <Plus className="w-4 h-4" />
-          Post New Opportunity
-        </button>
+        <div className="flex flex-wrap items-center gap-2.5 self-start sm:self-auto">
+          <button
+            onClick={() => setShowQuickModal(true)}
+            className="px-4 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-amber-500/20 flex items-center gap-2 cursor-pointer"
+          >
+            <Zap className="w-4 h-4 fill-slate-950 text-slate-950" />
+            <span>Fast-Track Post (&lt; 3 mins)</span>
+          </button>
+
+          <button
+            onClick={() => setShowCreateModal(true)}
+            className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-lg shadow-indigo-500/25 flex items-center gap-2 cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Standard Post</span>
+          </button>
+        </div>
       </div>
 
       {/* Alerts */}
@@ -666,6 +679,18 @@ export const OpportunityManagementView: React.FC<OpportunityManagementViewProps>
           </div>
         </div>
       )}
+
+      {/* Feature 4: Fast-Track Job Posting Modal (< 3 Minutes) */}
+      <QuickJobPostModal
+        isOpen={showQuickModal}
+        onClose={() => setShowQuickModal(false)}
+        onSuccess={() => {
+          setShowQuickModal(false);
+          loadOpportunities();
+        }}
+        token={token}
+        employerCompanyName={user?.employerProfile?.organizationName || 'Verified Employer'}
+      />
     </div>
   );
 };

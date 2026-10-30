@@ -17,6 +17,7 @@ import {
 } from '../controllers/resume.controller.js';
 import { CareerReadinessController } from '../controllers/careerReadiness.controller.js';
 import { AssessmentController } from '../controllers/assessment.controller.js';
+import { extractVoiceProfile } from '../controllers/voiceProfile.controller.js';
 
 const router = Router();
 
@@ -24,6 +25,7 @@ const router = Router();
 router.get('/career-profile', getCareerProfile);
 router.patch('/career-profile', updateCareerProfile);
 router.get('/profile-completion', getProfileCompletion);
+router.post('/voice-profile/extract', extractVoiceProfile);
 
 // Project Portfolio CRUD
 router.post('/projects', addProject);

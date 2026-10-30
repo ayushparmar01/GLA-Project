@@ -3,14 +3,9 @@ import {
   ArrowRight,
   CheckCircle2,
   Sparkles,
-  Building2,
-  Users2,
-  Target,
-  ShieldCheck,
+  Users,
   Briefcase,
-  Star,
-  Award,
-  Layers,
+  GraduationCap,
 } from 'lucide-react';
 
 interface HeroProps {
@@ -31,7 +26,7 @@ export const Hero: React.FC<HeroProps> = ({ onExplore, onJoin }) => {
             {/* Hackathon Badge */}
             <div className="inline-flex items-center space-x-2 bg-emerald-50 border border-emerald-200/90 rounded-full px-3.5 py-1.5 text-xs font-semibold text-emerald-800 shadow-2xs">
               <Sparkles className="w-4 h-4 text-emerald-600" />
-              <span>MISSION BHARAT HACKATHON — Problem Statement #07</span>
+              <span>MISSION BHARAT</span>
             </div>
 
             {/* Main Headline */}
@@ -45,8 +40,7 @@ export const Hero: React.FC<HeroProps> = ({ onExplore, onJoin }) => {
             {/* Supporting Paragraph */}
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl">
               CareerBridge connects students, colleges and employers through a unified career development
-              and recruitment platform — making career opportunities more accessible to students beyond
-              traditional campus placement networks.
+              and recruitment platform — expanding access to opportunities beyond traditional campus placement networks.
             </p>
 
             {/* CTAs */}
@@ -89,89 +83,64 @@ export const Hero: React.FC<HeroProps> = ({ onExplore, onJoin }) => {
             </div>
           </div>
 
-          {/* Right Column: Realistic Product Dashboard Visual */}
+          {/* Right Column: Premium Professional Photography Composition */}
           <div className="lg:col-span-5 relative">
-            <div className="bg-slate-900 rounded-3xl p-6 text-white shadow-2xl border border-slate-800 relative z-10 space-y-4">
-              {/* Card Header: Student Profile Snapshot */}
-              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center font-bold text-white text-base shadow-sm">
-                    AS
-                  </div>
-                  <div>
-                    <div className="flex items-center space-x-1.5">
-                      <h4 className="font-bold text-sm text-white">Aarav Sharma</h4>
-                      <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                    </div>
-                    <p className="text-xs text-slate-400">B.Tech CSE • Kolhapur District</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <span className="text-[11px] font-semibold uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                    Readiness: 88%
-                  </span>
+            <div className="relative">
+              {/* Primary Image: Collaborative Campus Learning */}
+              <div className="relative rounded-2xl overflow-hidden shadow-xl shadow-slate-200/60 border border-slate-200/80 bg-slate-100">
+                <img
+                  src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80"
+                  alt="University students collaborating around laptops in a modern campus learning environment"
+                  className="w-full h-64 sm:h-72 lg:h-76 object-cover"
+                  width={1200}
+                  height={800}
+                  loading="eager"
+                />
+                {/* Editorial Caption Tag */}
+                <div className="absolute bottom-3 left-3 bg-slate-900/85 backdrop-blur-xs text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center space-x-2 shadow-sm">
+                  <Users className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Collaborative Campus Learning</span>
                 </div>
               </div>
 
-              {/* Active Recommended Drive */}
-              <div className="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/80 space-y-2">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-semibold text-emerald-400 flex items-center space-x-1">
-                    <Target className="w-3.5 h-3.5" />
-                    <span>Top Recommendation (94% Match)</span>
-                  </span>
-                  <span className="text-slate-400">Full-Time</span>
-                </div>
-                <div>
-                  <div className="font-bold text-sm text-slate-100">
-                    Associate Full-Stack Software Engineer
+              {/* Supporting Editorial Images */}
+              <div className="grid grid-cols-2 gap-3.5 mt-3.5">
+                {/* Supporting Image 1: Employer Recruitment & Interview */}
+                <div className="relative rounded-xl overflow-hidden shadow-lg shadow-slate-200/50 border border-slate-200/80 bg-slate-100 group">
+                  <img
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80"
+                    alt="Professional recruitment interview and career discussion between employer and candidate"
+                    className="w-full h-36 sm:h-40 object-cover"
+                    width={800}
+                    height={533}
+                    loading="lazy"
+                  />
+                  <div className="absolute bottom-2 left-2 right-2 bg-slate-900/85 backdrop-blur-xs text-white px-2.5 py-1 rounded-md text-[11px] font-medium flex items-center space-x-1.5 truncate">
+                    <Briefcase className="w-3 h-3 text-teal-400 shrink-0" />
+                    <span className="truncate">Industry Recruitment</span>
                   </div>
-                  <div className="text-xs text-slate-400">ZenithPay Technologies (FinTech) • ₹6.5 - 8.5 LPA</div>
                 </div>
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                  {['React', 'TypeScript', 'Node.js', 'PostgreSQL'].map((sk) => (
-                    <span key={sk} className="text-[10px] font-medium px-2 py-0.5 rounded bg-slate-700/60 text-slate-300">
-                      {sk}
-                    </span>
-                  ))}
+
+                {/* Supporting Image 2: Technology Skill Development */}
+                <div className="relative rounded-xl overflow-hidden shadow-lg shadow-slate-200/50 border border-slate-200/80 bg-slate-100 group">
+                  <img
+                    src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80"
+                    alt="Students engaged in collaborative software development and technology skill problem-solving"
+                    className="w-full h-36 sm:h-40 object-cover"
+                    width={800}
+                    height={533}
+                    loading="lazy"
+                  />
+                  <div className="absolute bottom-2 left-2 right-2 bg-slate-900/85 backdrop-blur-xs text-white px-2.5 py-1 rounded-md text-[11px] font-medium flex items-center space-x-1.5 truncate">
+                    <GraduationCap className="w-3 h-3 text-indigo-400 shrink-0" />
+                    <span className="truncate">Skill Development</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Application Status Pipeline Preview */}
-              <div className="p-3.5 rounded-xl bg-slate-800/50 border border-slate-700/50 flex items-center justify-between">
-                <div>
-                  <div className="text-xs font-semibold text-slate-400">Application Pipeline</div>
-                  <div className="text-xs font-bold text-emerald-300 flex items-center space-x-1 mt-0.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Selected for Technical Offer</span>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <span className="text-xs font-medium text-slate-400">Round 2 / 2</span>
-                </div>
-              </div>
-
-              {/* Mentorship & Assessment Pulse */}
-              <div className="grid grid-cols-2 gap-2 text-xs pt-1">
-                <div className="p-2.5 rounded-lg bg-slate-800/40 border border-slate-700/40 flex items-center space-x-2">
-                  <Award className="w-4 h-4 text-teal-400 shrink-0" />
-                  <div>
-                    <div className="font-semibold text-slate-200">DSA Assessment</div>
-                    <div className="text-[10px] text-slate-400">Score: 92/100 (Verified)</div>
-                  </div>
-                </div>
-                <div className="p-2.5 rounded-lg bg-slate-800/40 border border-slate-700/40 flex items-center space-x-2">
-                  <Users2 className="w-4 h-4 text-indigo-400 shrink-0" />
-                  <div>
-                    <div className="font-semibold text-slate-200">Alumni Mentor</div>
-                    <div className="text-[10px] text-slate-400">Session Complete</div>
-                  </div>
-                </div>
-              </div>
+              {/* Subtle background ambient depth */}
+              <div className="absolute -bottom-2 -right-2 w-full h-full rounded-3xl bg-emerald-600/5 -z-10 pointer-events-none" />
             </div>
-
-            {/* Subtle background card depth accent */}
-            <div className="absolute -bottom-3 -right-3 w-full h-full rounded-3xl bg-emerald-600/10 border border-emerald-500/20 pointer-events-none -z-0" />
           </div>
         </div>
       </div>

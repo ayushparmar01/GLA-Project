@@ -1754,10 +1754,12 @@ export const fetchMyAssessmentHistoryApi = async (
 };
 
 export const fetchCareerReadinessReportApi = async (
-  token?: string | null
+  token?: string | null,
+  compact: boolean = false
 ): Promise<ApiResponse<CareerReadinessReport>> => {
   try {
-    const res = await fetch(`${API_BASE_URL}/students/me/career-readiness`, {
+    const qs = compact ? '?compact=true' : '';
+    const res = await fetch(`${API_BASE_URL}/students/me/career-readiness${qs}`, {
       method: 'GET',
       headers: getHeaders(token),
       credentials: 'include',
@@ -1769,6 +1771,30 @@ export const fetchCareerReadinessReportApi = async (
       error: {
         code: 'NETWORK_ERROR',
         message: error instanceof Error ? error.message : 'Failed to fetch career readiness report',
+      },
+    };
+  }
+};
+
+export const extractVoiceProfileApi = async (
+  transcript: string,
+  language: string = 'ta',
+  token?: string | null
+): Promise<ApiResponse<any>> => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/students/me/voice-profile/extract`, {
+      method: 'POST',
+      headers: getHeaders(token),
+      credentials: 'include',
+      body: JSON.stringify({ transcript, language }),
+    });
+    return await res.json();
+  } catch (error) {
+    return {
+      success: false,
+      error: {
+        code: 'NETWORK_ERROR',
+        message: error instanceof Error ? error.message : 'Failed to extract voice profile',
       },
     };
   }
